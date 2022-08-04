@@ -1,0 +1,28 @@
+﻿{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5200"
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5201
+        }
+      ],
+      "UpstreamPathTemplate": "/alpha/{url}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/alpha"
+      }
+    }
+  ]
+}

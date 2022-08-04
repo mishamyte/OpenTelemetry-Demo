@@ -1,0 +1,34 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        
+exporters:
+  # Export prometheus endpoint
+  # prometheus:
+  #  endpoint: "0.0.0.0:8889"
+  
+  logging:
+    loglevel: debug
+
+  zipkin:
+    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
+    format: proto
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, zipkin]
+    # metrics:
+    #  receivers: [otlp]
+    #  processors: [batch]
+    #  exporters: [logging, prometheus]
+    # logs:
+    #  receivers: [otlp]
+    #  processors: []
+    #  exporters: [logging, file]
