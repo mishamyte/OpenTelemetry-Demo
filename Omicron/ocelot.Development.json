@@ -23,6 +23,27 @@
       "UpstreamHeaderTransform": {
         "X-Forwarded-PathBase": "/alpha"
       }
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5202
+        }
+      ],
+      "UpstreamPathTemplate": "/sigma/{url}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/sigma"
+      }
     }
   ]
 }

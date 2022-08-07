@@ -30,8 +30,8 @@ IConnectionMultiplexer redisConnectionMultiplexer = await ConnectionMultiplexer.
 services.AddSingleton(redisConnectionMultiplexer);
 services.AddStackExchangeRedisCache(options => options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
 
+// MediatR + Tracing Behavior for it's handlers
 services.AddMediatR(Assembly.GetExecutingAssembly());
-
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TracingBehavior<,>));
 
 services.AddEndpointsApiExplorer()
