@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sigma", "Sigma\Sigma.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{127E4464-5559-49E0-BA7F-BD22AA340D20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mu", "Mu\Mu.csproj", "{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,5 +39,9 @@ Global
 		{127E4464-5559-49E0-BA7F-BD22AA340D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127E4464-5559-49E0-BA7F-BD22AA340D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127E4464-5559-49E0-BA7F-BD22AA340D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

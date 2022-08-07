@@ -30,6 +30,12 @@ services:
     environment:
       POSTGRES_PASSWORD: example
       
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      
   redis:
     image: redis
     ports:
