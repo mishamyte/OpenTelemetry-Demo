@@ -8,11 +8,14 @@ using Serilog;
 using Sigma.Commands;
 using Sigma.Persistence;
 using Sigma.Queries;
+using StackExchange.Redis;
 
 const string serviceName = "Sigma";
 const string serviceVersion = "1.0.0";
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
 
 builder.Host
     .ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders())
@@ -20,9 +23,16 @@ builder.Host
 
 var services = builder.Services;
 
-var connectionString = builder.Configuration.GetConnectionString(serviceName);
+var connectionString = configuration.GetConnectionString(serviceName);
 
 services.AddDbContext<SigmaContext>(options => options.UseNpgsql(connectionString));
+
+// Explicit creation of multiplexer
+// For RedisCache it is passed by factory below
+// For Redis instrumentation it is injected by DI (or could be passed explicitly)
+IConnectionMultiplexer redisConnectionMultiplexer = await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis"));
+services.AddSingleton(redisConnectionMultiplexer);
+services.AddStackExchangeRedisCache(options => options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
 
 services.AddMediatR(Assembly.GetExecutingAssembly());
 
@@ -37,6 +47,7 @@ services.AddOpenTelemetryTracing(providerBuilder =>
         .AddAspNetCoreInstrumentation()
         .AddEntityFrameworkCoreInstrumentation()
         .AddNpgsql()
+        .AddRedisInstrumentation()
         .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:4317"));
 });
 
@@ -50,6 +61,12 @@ await using (var scope = app.Services.CreateAsyncScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.MapGet("/user/{id:guid}", async (Guid id, IMediator mediator) =>
+{
+    var entity = await mediator.Send(new GetUserByIdQuery { Id = id });
+    return entity != null ? Results.Ok(entity) : Results.NotFound();
+});
 
 app.MapGet("/user/list", async (IMediator mediator) =>
 {

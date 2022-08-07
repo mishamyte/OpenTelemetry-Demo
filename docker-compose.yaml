@@ -29,6 +29,11 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: example
+      
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
   
   zipkin-all-in-one:
     image: openzipkin/zipkin:latest
