@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Serilog;
+using Shared.Extensions;
+using Sigma;
 using Sigma.Commands;
 using Sigma.Persistence;
 using Sigma.Queries;
@@ -14,14 +15,9 @@ const string serviceName = "Sigma";
 const string serviceVersion = "1.0.0";
 
 var builder = WebApplication.CreateBuilder(args);
+var (_, services, configuration, _, _, _) = builder;
 
-var configuration = builder.Configuration;
-
-builder.Host
-    .ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders())
-    .UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
-
-var services = builder.Services;
+builder.UseSerilog();
 
 var connectionString = configuration.GetConnectionString(serviceName);
 
@@ -36,6 +32,8 @@ services.AddStackExchangeRedisCache(options => options.ConnectionMultiplexerFact
 
 services.AddMediatR(Assembly.GetExecutingAssembly());
 
+services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TracingBehavior<,>));
+
 services.AddEndpointsApiExplorer()
     .AddSwaggerGen();
 
@@ -48,7 +46,7 @@ services.AddOpenTelemetryTracing(providerBuilder =>
         .AddEntityFrameworkCoreInstrumentation()
         .AddNpgsql()
         .AddRedisInstrumentation()
-        .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:4317"));
+        .AddOtlpExporter();
 });
 
 var app = builder.Build();

@@ -2,22 +2,19 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Serilog;
+using Shared.Extensions;
 
 const string serviceName = "Omicron";
 const string serviceVersion = "1.0.0";
 
 var builder = WebApplication.CreateBuilder(args);
+var (environment, services, configuration, _, _, _) = builder;
 
-builder.Host
-    .ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders())
-    .UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
+builder.UseSerilog();
 
 builder.Configuration
     .AddJsonFile("ocelot.json", false, true)
-    .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
-
-var services = builder.Services;
+    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true);
 
 services.AddOcelot();
 
@@ -28,7 +25,7 @@ services.AddOpenTelemetryTracing(providerBuilder =>
         .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
-        .AddOtlpExporter(options => options.Endpoint = new Uri("http://localhost:4317"));
+        .AddOtlpExporter();
 });
 
 var app = builder.Build();

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Sigma.Persistence;
 using Sigma.Persistence.Entities;
-using StackExchange.Redis;
 
 namespace Sigma.Queries;
 
@@ -12,16 +11,13 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUser
 {
     private readonly IDistributedCache _cache;
     private readonly SigmaContext _context;
-    private readonly IConnectionMultiplexer _connectionMultiplexer;
 
     public GetUserByIdQueryHandler(
         IDistributedCache cache,
-        SigmaContext context,
-        IConnectionMultiplexer connectionMultiplexer)
+        SigmaContext context)
     {
         _cache = cache;
         _context = context;
-        _connectionMultiplexer = connectionMultiplexer;
     }
 
     public async Task<GetUserByIdQuery.User?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
