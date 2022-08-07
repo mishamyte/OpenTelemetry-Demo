@@ -9,10 +9,10 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5201
+          "Port": 5203
         }
       ],
-      "UpstreamPathTemplate": "/alpha/{url}",
+      "UpstreamPathTemplate": "/mu/{url}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -21,7 +21,7 @@
         "Options"
       ],
       "UpstreamHeaderTransform": {
-        "X-Forwarded-PathBase": "/alpha"
+        "X-Forwarded-PathBase": "/mu"
       }
     },
     {
