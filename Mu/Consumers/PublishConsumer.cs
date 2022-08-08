@@ -11,7 +11,7 @@ public class PublishConsumer : IConsumer<Publish>
     {
         _logger = logger;
     }
-    
+
     public Task Consume(ConsumeContext<Publish> context)
     {
         _logger.LogInformation("Received {@Publish}", context.Message);

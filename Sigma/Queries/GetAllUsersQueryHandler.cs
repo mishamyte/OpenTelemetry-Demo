@@ -13,7 +13,7 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumer
     {
         _configuration = configuration;
     }
-    
+
     public async Task<IEnumerable<GetAllUsersQuery.User>> Handle(
         GetAllUsersQuery request,
         CancellationToken cancellationToken)

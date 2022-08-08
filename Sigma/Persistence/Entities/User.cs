@@ -8,7 +8,9 @@ public class User
         Name = name;
     }
 
-    private User() {}
+    private User()
+    {
+    }
 
     public Guid Id { get; private set; }
 

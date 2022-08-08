@@ -12,7 +12,7 @@ public class CreateUserCommandHandler : AsyncRequestHandler<CreateUserCommand>
     {
         _context = context;
     }
-    
+
     protected override async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var entity = new User(request.Id, request.Name);

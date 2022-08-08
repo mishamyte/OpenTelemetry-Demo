@@ -22,38 +22,40 @@ services.AddEndpointsApiExplorer()
 // MassTransit over RabbitMq
 services.Configure<MassTransitOptions>(configuration.GetSection(nameof(MassTransitOptions)));
 
-services.AddMassTransit(configurator =>
-{
-    configurator.SetKebabCaseEndpointNameFormatter();
+services.AddMassTransit(
+    configurator =>
+    {
+        configurator.SetKebabCaseEndpointNameFormatter();
 
-    configurator.UsingRabbitMq(
-        (ctx, cfg) =>
-        {
-            var options = ctx.GetRequiredService<IOptions<MassTransitOptions>>().Value;
+        configurator.UsingRabbitMq(
+            (ctx, cfg) =>
+            {
+                var options = ctx.GetRequiredService<IOptions<MassTransitOptions>>().Value;
 
-            cfg.Host(
-                options.Host,
-                host =>
-                {
-                    host.Username(options.Username);
-                    host.Password(options.Password);
-                });
+                cfg.Host(
+                    options.Host,
+                    host =>
+                    {
+                        host.Username(options.Username);
+                        host.Password(options.Password);
+                    });
 
-            cfg.ConfigureEndpoints(ctx);
-        });
+                cfg.ConfigureEndpoints(ctx);
+            });
 
-    configurator.AddConsumers(typeof(Program).Assembly);
-});
+        configurator.AddConsumers(typeof(Program).Assembly);
+    });
 
-services.AddOpenTelemetryTracing(providerBuilder =>
-{
-    providerBuilder
-        .AddSource(serviceName)
-        .AddSource("MassTransit")
-        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-        .AddAspNetCoreInstrumentation()
-        .AddOtlpExporter();
-});
+services.AddOpenTelemetryTracing(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddSource(serviceName)
+            .AddSource("MassTransit")
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddOtlpExporter();
+    });
 
 var app = builder.Build();
 

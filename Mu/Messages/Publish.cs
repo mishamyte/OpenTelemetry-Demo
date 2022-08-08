@@ -1,6 +1,8 @@
-﻿namespace Mu.Messages;
+﻿using System.Diagnostics.CodeAnalysis;
 
-// ReSharper disable once InconsistentNaming
+namespace Mu.Messages;
+
+[SuppressMessage("ReSharper", "InconsistentNaming", Justification = "As designed")]
 public interface Publish
 {
     public string Payload { get; set; }

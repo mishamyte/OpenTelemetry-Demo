@@ -11,7 +11,7 @@ public class CommandConsumer : IConsumer<Command>
     {
         _logger = logger;
     }
-    
+
     public Task Consume(ConsumeContext<Command> context)
     {
         _logger.LogInformation("Received {@Command}", context.Message);
