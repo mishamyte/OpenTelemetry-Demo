@@ -8,6 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Clients\Mu.Client\Mu.Client.csproj" />
+      <ProjectReference Include="..\Shared.MassTransit\Shared.MassTransit.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 

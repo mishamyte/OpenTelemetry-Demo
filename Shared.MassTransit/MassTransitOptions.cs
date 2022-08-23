@@ -1,4 +1,4 @@
-﻿namespace Mu;
+﻿namespace Shared.MassTransit;
 
 public class MassTransitOptions
 {

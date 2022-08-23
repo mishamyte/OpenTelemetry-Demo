@@ -1,14 +1,15 @@
+using Alpha;
+using Epsilon.Client;
 using MassTransit;
 using Microsoft.Extensions.Options;
-using Mu.Dtos;
-using Mu.Extensions;
-using Mu.Messages;
+using Mu.Client;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Refit;
 using Shared.Extensions;
 using Shared.MassTransit;
 
-const string serviceName = "Mu";
+const string serviceName = "Alpha";
 const string serviceVersion = "1.0.0";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,10 @@ builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
     .AddSwaggerGen();
+
+services
+    .AddRefitClient<IEpsilonClient>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["EpsilonUri"]));
 
 // MassTransit over RabbitMq
 services.Configure<MassTransitOptions>(configuration.GetSection(nameof(MassTransitOptions)));
@@ -42,9 +47,9 @@ services.AddMassTransit(
 
                 cfg.ConfigureEndpoints(ctx);
             });
-
-        configurator.AddConsumers(typeof(Program).Assembly);
     });
+
+services.AddMuClient();
 
 services.AddOpenTelemetryTracing(
     providerBuilder =>
@@ -54,6 +59,7 @@ services.AddOpenTelemetryTracing(
             .AddSource("MassTransit")
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
             .AddOtlpExporter();
     });
 
@@ -62,33 +68,20 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapPost(
-    "/command",
-    async (CommandDto request, ISendEndpointProvider provider, CancellationToken cancellationToken) =>
+app.MapGet("/aggregate", async (IEpsilonClient epsilonClient, IMuClient muClient) =>
+{
+    var foo = await epsilonClient.GetFoo();
+    var bar = await muClient.GetBar();
+
+    var aggregate = new Aggregate
     {
-        var endpoint = await provider.GetSendEndpoint<Command>();
-        await endpoint.Send<Command>(
-            new
-            {
-                Payload = request.Payload
-            },
-            cancellationToken);
+        FooId = foo.Id,
+        FooName = foo.Name,
+        BarId = bar.Id,
+        BarCost = bar.Cost
+    };
 
-        return Results.Ok();
-    });
-
-app.MapPost(
-    "/publish",
-    async (PublishDto request, IPublishEndpoint publishEndpoint, CancellationToken cancellationToken) =>
-    {
-        await publishEndpoint.Publish<Publish>(
-            new
-            {
-                Payload = request.Payload
-            },
-            cancellationToken);
-
-        return Results.Ok();
-    });
+    return Results.Ok(aggregate);
+});
 
 await app.RunAsync();

@@ -8,12 +8,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Clients\Epsilon.Client\Epsilon.Client.csproj" />
+      <ProjectReference Include="..\Clients\Mu.Client\Mu.Client.csproj" />
+      <ProjectReference Include="..\Shared.MassTransit\Shared.MassTransit.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="NEST" Version="7.17.4" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.ElasticsearchClient" Version="1.0.0-beta.3" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.5" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.5" />
+      <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     </ItemGroup>
 
 </Project>

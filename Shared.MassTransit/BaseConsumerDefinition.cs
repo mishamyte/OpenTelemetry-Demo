@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace Mu;
+namespace Shared.MassTransit;
 
 public abstract class BaseConsumerDefinition<TConsumer> : ConsumerDefinition<TConsumer>
     where TConsumer : class, IConsumer
