@@ -5,9 +5,9 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Shared.Extensions;
 
-const string serviceName = "Mu";
+const string serviceName = "Epsilon";
 const string serviceVersion = "1.0.0";
-const string indexName = "mu";
+const string indexName = "epsilon";
 
 var builder = WebApplication.CreateBuilder(args);
 var (_, services, configuration, _, _, _) = builder;
