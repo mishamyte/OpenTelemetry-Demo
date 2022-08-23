@@ -1,7 +1,32 @@
 version: "3.9"
 
 services:
-  
+
+  elasticsearch:
+    image: elasticsearch:8.3.3
+    container_name: otel-elasticsearch
+    ports:
+      - "9200:9200"
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+    environment:
+      http.host: 0.0.0.0
+      transport.host: 127.0.0.1
+      xpack.security.enabled: false
+
+  kibana:
+    image: kibana:8.3.3
+    container_name: otel-kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+
   otel-collector:
     image: otel/opentelemetry-collector:latest
     container_name: otel-collector
@@ -15,36 +40,36 @@ services:
       - "8889:8889"   # Prometheus exporter metrics
     depends_on:
       - zipkin-all-in-one
-  
+
   postgres:
     image: postgres
     container_name: otel-postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: example 
-      
+      POSTGRES_PASSWORD: example
+
   prometheus:
     image: prom/prometheus:latest
     container_name: otel-prometheus
     volumes:
-    - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
-    - "9090:9090"
-      
+      - "9090:9090"
+
   rabbitmq:
     image: rabbitmq:3.10.7-management
     container_name: otel-rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
-      
+
   redis:
     image: redis
     container_name: otel-redis
     ports:
       - "6379:6379"
-  
+
   zipkin-all-in-one:
     image: openzipkin/zipkin:latest
     container_name: otel-zipkin

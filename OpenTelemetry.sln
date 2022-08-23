@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mu", "Mu\Mu.csproj", "{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epsilon", "Epsilon\Epsilon.csproj", "{FC5C9D6E-0308-4016-8880-1119B3FBED18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epsilon.Client", "Epsilon.Client\Epsilon.Client.csproj", "{C5CB7396-32C8-4F6B-96D6-9E4353FD22DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,5 +43,13 @@ Global
 		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB62AA18-2375-4E51-8A8B-FF5B324AC5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5C9D6E-0308-4016-8880-1119B3FBED18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5C9D6E-0308-4016-8880-1119B3FBED18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5C9D6E-0308-4016-8880-1119B3FBED18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5C9D6E-0308-4016-8880-1119B3FBED18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5CB7396-32C8-4F6B-96D6-9E4353FD22DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5CB7396-32C8-4F6B-96D6-9E4353FD22DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5CB7396-32C8-4F6B-96D6-9E4353FD22DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5CB7396-32C8-4F6B-96D6-9E4353FD22DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
