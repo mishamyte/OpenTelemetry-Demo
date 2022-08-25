@@ -9,6 +9,48 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
+          "Port": 5201
+        }
+      ],
+      "UpstreamPathTemplate": "/alpha/{url}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/alpha"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5204
+        }
+      ],
+      "UpstreamPathTemplate": "/epsilon/{url}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/epsilon"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
           "Port": 5203
         }
       ],
