@@ -1,3 +1,4 @@
+using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using OpenTelemetry.Resources;
@@ -13,9 +14,20 @@ builder.UseSerilog();
 
 builder.Configuration
     .AddJsonFile("ocelot.json", false, true)
-    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true);
+    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true)
+    .AddOcelotWithSwaggerSupport(options =>
+    {
+        options.FileOfSwaggerEndPoints = "ocelot";
+        options.HostEnvironment = environment;
+    });
 
 services.AddOcelot();
+
+services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen();
+
+services.AddSwaggerForOcelot(configuration);
 
 services.AddOpenTelemetryTracing(providerBuilder =>
 {
@@ -28,6 +40,9 @@ services.AddOpenTelemetryTracing(providerBuilder =>
 });
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerForOcelotUI();
 
 await app.UseOcelot();
 
