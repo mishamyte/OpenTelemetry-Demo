@@ -2,7 +2,6 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Shared.Extensions;
 
 const string serviceName = "Omicron";
 const string serviceVersion = "1.0.0";

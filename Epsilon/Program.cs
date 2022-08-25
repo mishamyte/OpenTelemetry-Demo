@@ -3,7 +3,6 @@ using Epsilon.Client;
 using Nest;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Shared.Extensions;
 
 const string serviceName = "Epsilon";
 const string serviceVersion = "1.0.0";
@@ -35,6 +34,8 @@ services.AddOpenTelemetryTracing(
 var app = builder.Build();
 
 ClearAndSeedIndex(app.Services);
+
+app.UseForwardedPathBase();
 
 app.UseSwagger();
 app.UseSwaggerUI();

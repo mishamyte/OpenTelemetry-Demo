@@ -5,7 +5,6 @@ using Mu.Extensions;
 using Mu.Messages;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Shared.Extensions;
 using Shared.MassTransit;
 
 const string serviceName = "Mu";
@@ -58,6 +57,8 @@ services.AddOpenTelemetryTracing(
     });
 
 var app = builder.Build();
+
+app.UseForwardedPathBase();
 
 app.UseSwagger();
 app.UseSwaggerUI();

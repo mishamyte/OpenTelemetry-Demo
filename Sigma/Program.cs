@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Shared.Extensions;
 using Sigma;
 using Sigma.Commands;
 using Sigma.Persistence;
@@ -56,6 +55,8 @@ await using (var scope = app.Services.CreateAsyncScope())
     var context = scope.ServiceProvider.GetRequiredService<SigmaContext>();
     await context.Database.MigrateAsync();
 }
+
+app.UseForwardedPathBase();
 
 app.UseSwagger();
 app.UseSwaggerUI();
