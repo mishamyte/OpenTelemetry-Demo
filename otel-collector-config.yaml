@@ -7,7 +7,12 @@ exporters:
 
   logging:
     loglevel: debug
-  
+
+  otlp:
+    endpoint: "otel-tempo:4317"
+    tls:
+      insecure: true
+
   prometheus:
     endpoint: "0.0.0.0:8889"
 
@@ -23,7 +28,7 @@ service:
     traces:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, zipkin ]
+      exporters: [ logging, otlp, zipkin ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]

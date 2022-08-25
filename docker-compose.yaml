@@ -16,6 +16,18 @@ services:
       transport.host: 127.0.0.1
       xpack.security.enabled: false
 
+  grafana:
+    image: grafana/grafana
+    container_name: otel-grafana
+    volumes:
+      - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - "3000:3000"
+
   kibana:
     image: kibana:8.3.3
     container_name: otel-kibana
@@ -69,6 +81,16 @@ services:
     container_name: otel-redis
     ports:
       - "6379:6379"
+
+  tempo:
+    image: grafana/tempo
+    container_name: otel-tempo
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - ./tempo-data:/tmp/tempo
+    ports:
+      - "3200:3200"
 
   zipkin-all-in-one:
     image: openzipkin/zipkin:latest
