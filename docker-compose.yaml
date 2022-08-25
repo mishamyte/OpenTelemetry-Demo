@@ -17,7 +17,7 @@ services:
       xpack.security.enabled: false
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     container_name: otel-grafana
     volumes:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
@@ -38,6 +38,12 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+
+  loki:
+    image: grafana/loki:latest
+    container_name: otel-loki
+    ports:
+      - "3100:3100"
 
   otel-collector:
     image: otel/opentelemetry-collector:latest
@@ -83,7 +89,7 @@ services:
       - "6379:6379"
 
   tempo:
-    image: grafana/tempo
+    image: grafana/tempo:latest
     container_name: otel-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
