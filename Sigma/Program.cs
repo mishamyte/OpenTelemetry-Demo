@@ -9,6 +9,7 @@ using Sigma.Commands;
 using Sigma.Persistence;
 using Sigma.Queries;
 using StackExchange.Redis;
+using Swashbuckle.AspNetCore.Annotations;
 
 const string serviceName = "Sigma";
 const string serviceVersion = "1.0.0";
@@ -25,16 +26,23 @@ services.AddDbContext<SigmaContext>(options => options.UseNpgsql(connectionStrin
 // Explicit creation of multiplexer
 // For RedisCache it is passed by factory below
 // For Redis instrumentation it is injected by DI (or could be passed explicitly)
-IConnectionMultiplexer redisConnectionMultiplexer = await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis"));
+IConnectionMultiplexer redisConnectionMultiplexer =
+    await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis"));
 services.AddSingleton(redisConnectionMultiplexer);
-services.AddStackExchangeRedisCache(options => options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
+services.AddStackExchangeRedisCache(options =>
+    options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
 
 // MediatR + Tracing Behavior for it's handlers
 services.AddMediatR(Assembly.GetExecutingAssembly());
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TracingBehavior<,>));
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+    .AddSwaggerGen(options =>
+    {
+        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+        options.DescribeAllParametersInCamelCase();
+        options.EnableAnnotations();
+    });
 
 services.AddOpenTelemetryTracing(providerBuilder =>
 {
@@ -62,17 +70,24 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/user/{id:guid}", async (Guid id, IMediator mediator) =>
-{
-    var entity = await mediator.Send(new GetUserByIdQuery { Id = id });
-    return entity != null ? Results.Ok(entity) : Results.NotFound();
-});
+    {
+        var entity = await mediator.Send(new GetUserByIdQuery { Id = id });
+        return entity != null ? Results.Ok(entity) : Results.NotFound();
+    })
+    .Produces<GetUserByIdQuery.User>()
+    .Produces(StatusCodes.Status404NotFound)
+    .WithMetadata(new SwaggerOperationAttribute("Try to find user in Redis, otherwise try to find it in Posgres with EF Core"));
 
 app.MapGet("/user/list", async (IMediator mediator) =>
-{
-    var entities = await mediator.Send(new GetAllUsersQuery());
-    return Results.Ok(entities);
-});
+    {
+        var entities = await mediator.Send(new GetAllUsersQuery());
+        return Results.Ok(entities);
+    })
+    .Produces<IEnumerable<GetAllUsersQuery.User>>()
+    .WithMetadata(new SwaggerOperationAttribute("Get all users from Postgres via Dapper"));
 
-app.MapPost("/user", async (CreateUserCommand request, IMediator mediator) => await mediator.Send(request));
+app.MapPost("/user", async (CreateUserCommand request, IMediator mediator) => await mediator.Send(request))
+    .Produces(StatusCodes.Status200OK)
+    .WithMetadata(new SwaggerOperationAttribute("Create user in Postgres with EF Core"));
 
 await app.RunAsync();

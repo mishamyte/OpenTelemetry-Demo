@@ -7,6 +7,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Refit;
 using Shared.MassTransit;
+using Swashbuckle.AspNetCore.Annotations;
 
 const string serviceName = "Alpha";
 const string serviceVersion = "1.0.0";
@@ -17,7 +18,12 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+    .AddSwaggerGen(options =>
+    {
+        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+        options.DescribeAllParametersInCamelCase();
+        options.EnableAnnotations();
+    });
 
 services
     .AddRefitClient<IEpsilonClient>()
@@ -70,19 +76,23 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/aggregate", async (IEpsilonClient epsilonClient, IMuClient muClient) =>
-{
-    var foo = await epsilonClient.GetFoo();
-    var bar = await muClient.GetBar();
-
-    var aggregate = new Aggregate
     {
-        FooId = foo.Id,
-        FooName = foo.Name,
-        BarId = bar.Id,
-        BarCost = bar.Cost
-    };
+        var foo = await epsilonClient.GetFoo();
+        var bar = await muClient.GetBar();
 
-    return Results.Ok(aggregate);
-});
+        var aggregate = new Aggregate
+        {
+            FooId = foo.Id,
+            FooName = foo.Name,
+            BarId = bar.Id,
+            BarCost = bar.Cost
+        };
+
+        return Results.Ok(aggregate);
+    })
+    .Produces<Aggregate>()
+    .WithMetadata(
+        new SwaggerOperationAttribute(
+            "Aggregate data from Epsilon via Refit and Mu via MassTransit's request/response"));
 
 await app.RunAsync();

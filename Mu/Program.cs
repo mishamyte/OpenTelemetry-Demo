@@ -6,6 +6,7 @@ using Mu.Messages;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Shared.MassTransit;
+using Swashbuckle.AspNetCore.Annotations;
 
 const string serviceName = "Mu";
 const string serviceVersion = "1.0.0";
@@ -16,7 +17,12 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+    .AddSwaggerGen(options =>
+    {
+        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+        options.DescribeAllParametersInCamelCase();
+        options.EnableAnnotations();
+    });
 
 // MassTransit over RabbitMq
 services.Configure<MassTransitOptions>(configuration.GetSection(nameof(MassTransitOptions)));
@@ -76,7 +82,9 @@ app.MapPost(
             cancellationToken);
 
         return Results.Ok();
-    });
+    })
+    .Produces(StatusCodes.Status200OK)
+    .WithMetadata(new SwaggerOperationAttribute("Send command via MassTransit"));
 
 app.MapPost(
     "/publish",
@@ -90,6 +98,8 @@ app.MapPost(
             cancellationToken);
 
         return Results.Ok();
-    });
+    })
+    .Produces(StatusCodes.Status200OK)
+    .WithMetadata(new SwaggerOperationAttribute("Publish event via MassTransit"));
 
 await app.RunAsync();

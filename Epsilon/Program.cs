@@ -3,6 +3,7 @@ using Epsilon.Client;
 using Nest;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Swashbuckle.AspNetCore.Annotations;
 
 const string serviceName = "Epsilon";
 const string serviceVersion = "1.0.0";
@@ -14,7 +15,12 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+    .AddSwaggerGen(options =>
+    {
+        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+        options.DescribeAllParametersInCamelCase();
+        options.EnableAnnotations();
+    });
 
 var connectionSettings = new ConnectionSettings(new Uri(configuration["Elasticsearch:Uri"]))
     .DefaultIndex(indexName);
@@ -41,13 +47,15 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/foo", async (IElasticClient elasticClient) =>
-{
-    var entities = await elasticClient
-        .SearchAsync<Foo>(s => s.Query(q => q.MatchAll()));
-    var entity = entities.Documents.First();
+    {
+        var entities = await elasticClient
+            .SearchAsync<Foo>(s => s.Query(q => q.MatchAll()));
+        var entity = entities.Documents.First();
 
-    return Results.Ok(new FooDto(entity.Id, entity.Name));
-});
+        return Results.Ok(new FooDto(entity.Id, entity.Name));
+    })
+    .Produces<FooDto>()
+    .WithMetadata(new SwaggerOperationAttribute("Try to find foo in ElasticSearch"));
 
 await app.RunAsync();
 
