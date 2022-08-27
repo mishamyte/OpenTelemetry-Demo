@@ -2,6 +2,7 @@ using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Sigma;
@@ -55,6 +56,17 @@ services.AddOpenTelemetryTracing(providerBuilder =>
         .AddRedisInstrumentation()
         .AddOtlpExporter();
 });
+
+services.AddOpenTelemetryMetrics(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter();
+    });
 
 var app = builder.Build();
 

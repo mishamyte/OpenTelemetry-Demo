@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Mu.Dtos;
 using Mu.Extensions;
 using Mu.Messages;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Shared.MassTransit;
@@ -59,6 +60,17 @@ services.AddOpenTelemetryTracing(
             .AddSource("MassTransit")
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
+            .AddOtlpExporter();
+    });
+
+services.AddOpenTelemetryMetrics(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
             .AddOtlpExporter();
     });
 

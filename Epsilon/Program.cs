@@ -1,6 +1,7 @@
 using Epsilon;
 using Epsilon.Client;
 using Nest;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Swashbuckle.AspNetCore.Annotations;
@@ -34,6 +35,17 @@ services.AddOpenTelemetryTracing(
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
             .AddElasticsearchClientInstrumentation()
+            .AddOtlpExporter();
+    });
+
+services.AddOpenTelemetryMetrics(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
             .AddOtlpExporter();
     });
 

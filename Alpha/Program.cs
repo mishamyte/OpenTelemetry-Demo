@@ -3,6 +3,7 @@ using Epsilon.Client;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Mu.Client;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Refit;
@@ -65,6 +66,18 @@ services.AddOpenTelemetryTracing(
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
             .AddHttpClientInstrumentation()
+            .AddOtlpExporter();
+    });
+
+services.AddOpenTelemetryMetrics(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
             .AddOtlpExporter();
     });
 
