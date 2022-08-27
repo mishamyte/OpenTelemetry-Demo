@@ -14,9 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit" Version="8.0.5" />
-      <PackageReference Include="MassTransit.Analyzers" Version="8.0.5" />
-      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.5" />
+      <PackageReference Include="MassTransit" Version="$(MassTransitVersion)" />
+      <PackageReference Include="MassTransit.Analyzers" Version="$(MassTransitVersion)" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
     </ItemGroup>
 
 </Project>

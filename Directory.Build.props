@@ -3,13 +3,19 @@
 
     <PropertyGroup>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
+        <!-- Dependencies versions -->
+        <EntityFrameworkCoreVersion>6.0.8</EntityFrameworkCoreVersion>
+        <MassTransitVersion>8.0.6</MassTransitVersion>
+        <OtelAlphaVersion>1.4.0-alpha.2</OtelAlphaVersion>
+        <OtelRcVersion>1.0.0-rc9.6</OtelRcVersion>
+        <SwaggerVersion>6.4.0</SwaggerVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="OpenTelemetry" Version="1.4.0-alpha.1" />
-        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.4.0-alpha.1" />
-        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.5" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.5" />
+        <PackageReference Include="OpenTelemetry" Version="$(OtelAlphaVersion)" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OtelAlphaVersion)" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OtelRcVersion)" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OtelRcVersion)" />
         <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.0.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
         <PackageReference Include="Serilog.Enrichers.Span" Version="2.3.0" />
@@ -20,10 +26,10 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="$(SwaggerVersion)" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="$(SwaggerVersion)" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="$(SwaggerVersion)" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="$(SwaggerVersion)" />
     </ItemGroup>
 
 </Project>
