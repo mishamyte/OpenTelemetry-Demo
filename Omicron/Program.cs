@@ -1,4 +1,3 @@
-using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using OpenTelemetry.Metrics;
@@ -15,12 +14,7 @@ builder.UseSerilog();
 
 builder.Configuration
     .AddJsonFile("ocelot.json", false, true)
-    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true)
-    .AddOcelotWithSwaggerSupport(options =>
-    {
-        options.FileOfSwaggerEndPoints = "ocelot";
-        options.HostEnvironment = environment;
-    });
+    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true);
 
 services.AddOcelot();
 
