@@ -1,6 +1,7 @@
 using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -38,6 +39,18 @@ services.AddOpenTelemetryTracing(providerBuilder =>
         .AddHttpClientInstrumentation()
         .AddOtlpExporter();
 });
+
+services.AddOpenTelemetryMetrics(
+    providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter();
+    });
 
 var app = builder.Build();
 
