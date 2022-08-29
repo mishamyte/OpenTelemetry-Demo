@@ -28,7 +28,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Dotnet Info
+      - name: DotNet Info
         run: dotnet --info
 
       - name: Install dependencies
