@@ -45,7 +45,7 @@ Solution consists of multiple services that use common infrastructure building b
 
 ## Solution architecture
 
-TBA
+![Architecture diagram](./docs/architecture-diagram.png)
 
 ## How to run?
 
