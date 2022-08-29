@@ -22,5 +22,6 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 **/tempo-data
+**/.github
 LICENSE
 README.md
