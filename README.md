@@ -24,6 +24,8 @@ Glory to Ukraine! 🇺🇦
     - [Mu](#mu)
     - [Omicron](#omicron)
     - [Sigma](#sigma)
+- [Data flows](#data-flows)
+- [Contributing](#contributing)
 
 ## Project description
 
