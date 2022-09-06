@@ -58,7 +58,6 @@ services:
       - loki
       - prometheus
       - tempo
-      - zipkin-all-in-one
     ports:
       - "4317:4317"   # OTLP gRPC receiver
       - "8888:8888"   # Prometheus metrics exposed by the collector
@@ -104,12 +103,6 @@ services:
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml
       - ./tempo-data:/tmp/tempo
-
-  zipkin-all-in-one:
-    image: openzipkin/zipkin:latest
-    container_name: otel-zipkin
-    ports:
-      - "9411:9411"
 
   # Application
 
