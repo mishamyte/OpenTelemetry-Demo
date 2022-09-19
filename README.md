@@ -39,7 +39,7 @@ It consists of:
 
 Solution consists of multiple services that use common infrastructure building blocks:
 - [Elasticsearch](https://www.elastic.co/) and [Kibana](https://www.elastic.co/kibana/)
-- [MassTransit](https://masstransit-project.com/) over RabbitMQ(https://www.rabbitmq.com/)
+- [MassTransit](https://masstransit-project.com/) over RabbitMQ (https://www.rabbitmq.com/)
 - [PostgreSQL](https://www.postgresql.org/) with [Npgsql](https://www.npgsql.org/), using [EF Core](https://docs.microsoft.com/en-us/ef/core/) and [Dapper](https://github.com/DapperLib/Dapper)
 - [Redis](https://redis.io/) with [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)
 
