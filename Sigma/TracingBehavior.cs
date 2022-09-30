@@ -8,8 +8,8 @@ public class TracingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 {
     public Task<TResponse> Handle(
         TRequest request,
-        CancellationToken cancellationToken,
-        RequestHandlerDelegate<TResponse> next)
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         using var activity = new ActivitySource("Sigma").StartActivity(typeof(TRequest).FullName!);
         activity?.SetTag("RequestType", typeof(TRequest));
