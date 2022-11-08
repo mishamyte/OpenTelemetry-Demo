@@ -7,7 +7,7 @@
         <EntityFrameworkCoreVersion>6.0.10</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.0.8</MassTransitVersion>
         <OtelAlphaVersion>1.4.0-beta.3</OtelAlphaVersion>
-        <OtelRcVersion>1.0.0-rc9.8</OtelRcVersion>
+        <OtelRcVersion>1.0.0-rc9.9</OtelRcVersion>
         <SwaggerVersion>6.4.0</SwaggerVersion>
     </PropertyGroup>
 
