@@ -7,16 +7,16 @@
         <EntityFrameworkCoreVersion>7.0.1</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.0.9</MassTransitVersion>
         <OtelAlphaVersion>1.4.0-rc.1</OtelAlphaVersion>
-        <OtelRcVersion>1.0.0-rc9.9</OtelRcVersion>
+        <OtelRcVersion>1.0.0-rc9.10</OtelRcVersion>
         <SwaggerVersion>6.4.0</SwaggerVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="OpenTelemetry" Version="$(OtelAlphaVersion)" />
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OtelAlphaVersion)" />
-        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OtelRcVersion)" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OtelAlphaVersion)" />
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OtelRcVersion)" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.0.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.1.0-beta.2" />
         <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
         <PackageReference Include="Serilog.Enrichers.Span" Version="3.0.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
