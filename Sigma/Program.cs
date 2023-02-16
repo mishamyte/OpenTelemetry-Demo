@@ -34,7 +34,7 @@ services.AddStackExchangeRedisCache(options =>
     options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
 
 // MediatR + Tracing Behavior for it's handlers
-services.AddMediatR(Assembly.GetExecutingAssembly());
+services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TracingBehavior<,>));
 
 services.AddEndpointsApiExplorer()
