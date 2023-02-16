@@ -4,7 +4,7 @@ using Sigma.Persistence.Entities;
 
 namespace Sigma.Commands;
 
-public class CreateUserCommandHandler : AsyncRequestHandler<CreateUserCommand>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
 {
     private readonly SigmaContext _context;
 
@@ -13,7 +13,7 @@ public class CreateUserCommandHandler : AsyncRequestHandler<CreateUserCommand>
         _context = context;
     }
 
-    protected override async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var entity = new User(request.Id, request.Name);
         await _context.Set<User>().AddAsync(entity, cancellationToken);
