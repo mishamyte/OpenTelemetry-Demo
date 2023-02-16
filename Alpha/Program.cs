@@ -57,8 +57,8 @@ services.AddMassTransit(
 
 services.AddMuClient();
 
-services.AddOpenTelemetryTracing(
-    providerBuilder =>
+services.AddOpenTelemetry()
+    .WithTracing(providerBuilder =>
     {
         providerBuilder
             .AddSource(serviceName)
@@ -67,10 +67,7 @@ services.AddOpenTelemetryTracing(
             .AddAspNetCoreInstrumentation()
             .AddHttpClientInstrumentation()
             .AddOtlpExporter();
-    });
-
-services.AddOpenTelemetryMetrics(
-    providerBuilder =>
+    }).WithMetrics(providerBuilder =>
     {
         providerBuilder
             .AddMeter(serviceName)

@@ -27,8 +27,7 @@ var connectionSettings = new ConnectionSettings(new Uri(configuration["Elasticse
     .DefaultIndex(indexName);
 services.AddSingleton<IElasticClient>(_ => new ElasticClient(connectionSettings));
 
-services.AddOpenTelemetryTracing(
-    providerBuilder =>
+services.AddOpenTelemetry().WithTracing(providerBuilder =>
     {
         providerBuilder
             .AddSource(serviceName)
@@ -36,10 +35,8 @@ services.AddOpenTelemetryTracing(
             .AddAspNetCoreInstrumentation()
             .AddElasticsearchClientInstrumentation()
             .AddOtlpExporter();
-    });
-
-services.AddOpenTelemetryMetrics(
-    providerBuilder =>
+    })
+    .WithMetrics(providerBuilder =>
     {
         providerBuilder
             .AddMeter(serviceName)

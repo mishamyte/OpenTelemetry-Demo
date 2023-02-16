@@ -52,8 +52,8 @@ services.AddMassTransit(
         configurator.AddConsumers(typeof(Program).Assembly);
     });
 
-services.AddOpenTelemetryTracing(
-    providerBuilder =>
+services.AddOpenTelemetry()
+    .WithTracing(providerBuilder =>
     {
         providerBuilder
             .AddSource(serviceName)
@@ -61,10 +61,8 @@ services.AddOpenTelemetryTracing(
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
             .AddOtlpExporter();
-    });
-
-services.AddOpenTelemetryMetrics(
-    providerBuilder =>
+    })
+    .WithMetrics(providerBuilder =>
     {
         providerBuilder
             .AddMeter(serviceName)
@@ -82,35 +80,35 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapPost(
-    "/command",
-    async (CommandDto request, ISendEndpointProvider provider, CancellationToken cancellationToken) =>
-    {
-        var endpoint = await provider.GetSendEndpoint<Command>();
-        await endpoint.Send<Command>(
-            new
-            {
-                Payload = request.Payload
-            },
-            cancellationToken);
+        "/command",
+        async (CommandDto request, ISendEndpointProvider provider, CancellationToken cancellationToken) =>
+        {
+            var endpoint = await provider.GetSendEndpoint<Command>();
+            await endpoint.Send<Command>(
+                new
+                {
+                    Payload = request.Payload
+                },
+                cancellationToken);
 
-        return Results.Ok();
-    })
+            return Results.Ok();
+        })
     .Produces(StatusCodes.Status200OK)
     .WithMetadata(new SwaggerOperationAttribute("Send command via MassTransit"));
 
 app.MapPost(
-    "/publish",
-    async (PublishDto request, IPublishEndpoint publishEndpoint, CancellationToken cancellationToken) =>
-    {
-        await publishEndpoint.Publish<Publish>(
-            new
-            {
-                Payload = request.Payload
-            },
-            cancellationToken);
+        "/publish",
+        async (PublishDto request, IPublishEndpoint publishEndpoint, CancellationToken cancellationToken) =>
+        {
+            await publishEndpoint.Publish<Publish>(
+                new
+                {
+                    Payload = request.Payload
+                },
+                cancellationToken);
 
-        return Results.Ok();
-    })
+            return Results.Ok();
+        })
     .Produces(StatusCodes.Status200OK)
     .WithMetadata(new SwaggerOperationAttribute("Publish event via MassTransit"));
 

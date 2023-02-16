@@ -24,18 +24,17 @@ services
 
 services.AddSwaggerForOcelot(configuration);
 
-services.AddOpenTelemetryTracing(providerBuilder =>
-{
-    providerBuilder
-        .AddSource(serviceName)
-        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-        .AddAspNetCoreInstrumentation()
-        .AddHttpClientInstrumentation()
-        .AddOtlpExporter();
-});
-
-services.AddOpenTelemetryMetrics(
-    providerBuilder =>
+services.AddOpenTelemetry()
+    .WithTracing(providerBuilder =>
+    {
+        providerBuilder
+            .AddSource(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter();
+    })
+    .WithMetrics(providerBuilder =>
     {
         providerBuilder
             .AddMeter(serviceName)

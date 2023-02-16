@@ -1,4 +1,3 @@
-using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -28,7 +27,7 @@ services.AddDbContext<SigmaContext>(options => options.UseNpgsql(connectionStrin
 // For RedisCache it is passed by factory below
 // For Redis instrumentation it is injected by DI (or could be passed explicitly)
 IConnectionMultiplexer redisConnectionMultiplexer =
-    await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis"));
+    await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis")!);
 services.AddSingleton(redisConnectionMultiplexer);
 services.AddStackExchangeRedisCache(options =>
     options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
@@ -45,24 +44,23 @@ services.AddEndpointsApiExplorer()
         options.EnableAnnotations();
     });
 
-services.AddOpenTelemetryTracing(providerBuilder =>
-{
-    providerBuilder
-        .AddSource(serviceName)
-        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-        .AddAspNetCoreInstrumentation()
-        .AddEntityFrameworkCoreInstrumentation()
-        .AddNpgsql()
-        .AddRedisInstrumentation()
-        .AddOtlpExporter();
-});
-
-services.AddOpenTelemetryMetrics(
-    providerBuilder =>
+services.AddOpenTelemetry()
+    .WithTracing(providerBuilder =>
+    {
+        providerBuilder
+            .AddSource(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddEntityFrameworkCoreInstrumentation()
+            .AddNpgsql()
+            .AddRedisInstrumentation()
+            .AddOtlpExporter();
+    }).WithMetrics(providerBuilder =>
     {
         providerBuilder
             .AddMeter(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .SetResourceBuilder(ResourceBuilder.CreateDefault()
+                .AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
             .AddRuntimeInstrumentation()
             .AddOtlpExporter();
@@ -88,7 +86,8 @@ app.MapGet("/user/{id:guid}", async (Guid id, IMediator mediator) =>
     })
     .Produces<GetUserByIdQuery.User>()
     .Produces(StatusCodes.Status404NotFound)
-    .WithMetadata(new SwaggerOperationAttribute("Try to find user in Redis, otherwise try to find it in Posgres with EF Core"));
+    .WithMetadata(
+        new SwaggerOperationAttribute("Try to find user in Redis, otherwise try to find it in Posgres with EF Core"));
 
 app.MapGet("/user/list", async (IMediator mediator) =>
     {
