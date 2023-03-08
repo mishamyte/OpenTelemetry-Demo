@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <PackageReference Include="NEST" Version="7.17.5" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.ElasticsearchClient" Version="1.0.0-beta.3" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.ElasticsearchClient" Version="1.0.0-beta.4" />
     </ItemGroup>
 
 </Project>
