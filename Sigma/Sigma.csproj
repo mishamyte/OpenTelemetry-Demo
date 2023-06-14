@@ -23,7 +23,7 @@
       <PackageReference Include="Npgsql.OpenTelemetry" Version="7.0.4" />
       <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.7" />
       <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.10" />
-      <PackageReference Include="StackExchange.Redis" Version="2.6.111" />
+      <PackageReference Include="StackExchange.Redis" Version="2.6.116" />
     </ItemGroup>
 
     <ItemGroup>
