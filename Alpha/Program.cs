@@ -28,7 +28,7 @@ services.AddEndpointsApiExplorer()
 
 services
     .AddRefitClient<IEpsilonClient>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["EpsilonUri"]));
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["EpsilonUri"]!));
 
 // MassTransit over RabbitMq
 services.Configure<MassTransitOptions>(configuration.GetSection(nameof(MassTransitOptions)));
