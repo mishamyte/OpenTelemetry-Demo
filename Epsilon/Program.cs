@@ -23,7 +23,7 @@ services.AddEndpointsApiExplorer()
         options.EnableAnnotations();
     });
 
-var connectionSettings = new ConnectionSettings(new Uri(configuration["Elasticsearch:Uri"]))
+var connectionSettings = new ConnectionSettings(new Uri(configuration["Elasticsearch:Uri"]!))
     .DefaultIndex(indexName);
 services.AddSingleton<IElasticClient>(_ => new ElasticClient(connectionSettings));
 

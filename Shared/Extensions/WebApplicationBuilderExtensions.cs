@@ -29,8 +29,8 @@ public static class WebApplicationBuilderExtensions
 
     public static void UseSerilog(this WebApplicationBuilder builder)
     {
-        builder.Host
-            .ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders())
-            .UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
+        builder.Logging.ClearProviders();
+
+        builder.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
     }
 }
