@@ -16,7 +16,7 @@
     <ItemGroup>
       <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
       <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="$(OtelRcVersion)" />
-      <PackageReference Include="Refit.HttpClientFactory" Version="6.5.1" />
+      <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
