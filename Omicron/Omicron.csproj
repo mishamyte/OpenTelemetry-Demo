@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="MMLib.SwaggerForOcelot" Version="7.0.1" />
-        <PackageReference Include="Ocelot" Version="19.0.2" />
+        <PackageReference Include="Ocelot" Version="19.0.3" />
         <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="$(OtelRcVersion)" />
     </ItemGroup>
 
