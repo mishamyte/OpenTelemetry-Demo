@@ -1,6 +1,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 using Nu;
+using Nu.Client;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -76,12 +77,12 @@ app.MapGet(
             var db = mongoClient.GetDatabase(serviceName);
             var collection = db.GetCollection<Wasabi>(nameof(Wasabi));
             var entity = await collection.Find(_ => true).FirstOrDefaultAsync();
-            return entity != null ? Results.Ok(entity) : Results.NotFound();
+            return entity != null ? Results.Ok(new WasabiDto(entity.Id, entity.Name)) : Results.NotFound();
         })
-    .Produces<Wasabi>()
+    .Produces<WasabiDto>()
     .Produces(StatusCodes.Status404NotFound)
     .WithMetadata(
-        new SwaggerOperationAttribute("Try to find foo in Mongo"));
+        new SwaggerOperationAttribute("Try to find wasabi in Mongo"));
 
 await app.RunAsync();
 return;
@@ -90,7 +91,7 @@ static async Task ClearAndSeedCollection(IServiceProvider serviceProvider)
 {
     var client = serviceProvider.GetRequiredService<IMongoClient>();
     var db = client.GetDatabase(serviceName);
-    await db.DropCollectionAsync(serviceName);
+    await db.DropCollectionAsync(nameof(Wasabi));
     var collection = db.GetCollection<Wasabi>(nameof(Wasabi));
     await collection.InsertOneAsync(new Wasabi(Guid.Parse("4179BBFB-0222-4932-95AA-1CA780ACB79A"), "Wasabi"));
 }
