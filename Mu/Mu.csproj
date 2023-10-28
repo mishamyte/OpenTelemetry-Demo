@@ -17,6 +17,7 @@
       <PackageReference Include="MassTransit" Version="$(MassTransitVersion)" />
       <PackageReference Include="MassTransit.Analyzers" Version="$(MassTransitVersion)" />
       <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
+      <PackageReference Update="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.2" />
     </ItemGroup>
 
 </Project>

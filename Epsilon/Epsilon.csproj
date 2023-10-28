@@ -14,6 +14,7 @@
     <ItemGroup>
       <PackageReference Include="NEST" Version="7.17.5" />
       <PackageReference Include="OpenTelemetry.Instrumentation.ElasticsearchClient" Version="1.0.0-beta.5" />
+      <PackageReference Update="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.2" />
     </ItemGroup>
 
 </Project>
