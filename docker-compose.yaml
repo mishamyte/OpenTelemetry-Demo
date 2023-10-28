@@ -50,6 +50,12 @@ services:
     ports:
       - "3100:3100"
 
+  mongo:
+    image: mongo
+    container_name: otel-mongo
+    ports:
+      - 27017:27017
+
   otel-collector:
     image: otel/opentelemetry-collector:latest
     container_name: otel-collector
