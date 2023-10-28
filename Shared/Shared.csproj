@@ -10,8 +10,4 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Update="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.2" />
-    </ItemGroup>
-
 </Project>
