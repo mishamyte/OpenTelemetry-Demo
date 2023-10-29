@@ -9,4 +9,8 @@ public record Aggregate
     public Guid BarId { get; init; }
 
     public int BarCost { get; init; }
+
+    public Guid WasabiId { get; init; }
+
+    public string WasabiName { get; init; } = null!;
 }

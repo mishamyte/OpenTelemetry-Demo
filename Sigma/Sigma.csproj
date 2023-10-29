@@ -7,32 +7,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.15" />
-      <PackageReference Include="MediatR" Version="12.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EntityFrameworkCoreVersion)" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="$(EntityFrameworkCoreVersion)" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCoreVersion)">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
-      <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(EntityFrameworkCoreVersion)" />
-      <PackageReference Include="Npgsql" Version="7.0.6" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
-      <PackageReference Include="Npgsql.OpenTelemetry" Version="7.0.6" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.8" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.10" />
-      <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
-      <PackageReference Update="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.2" />
+        <PackageReference Include="Dapper" Version="2.1.15" />
+        <PackageReference Include="MediatR" Version="12.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EntityFrameworkCoreVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="$(EntityFrameworkCoreVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCoreVersion)">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(EntityFrameworkCoreVersion)" />
+        <PackageReference Include="Npgsql" Version="7.0.6" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+        <PackageReference Include="Npgsql.OpenTelemetry" Version="7.0.6" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.8" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.10" />
+        <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistence\Migrations" />
+        <Folder Include="Persistence\Migrations" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shared\Shared.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

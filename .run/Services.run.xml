@@ -1,0 +1,11 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Services" type="CompoundRunConfigurationType">
+    <toRun name="Alpha" type="LaunchSettings" />
+    <toRun name="Epsilon" type="LaunchSettings" />
+    <toRun name="Mu" type="LaunchSettings" />
+    <toRun name="Nu" type="LaunchSettings" />
+    <toRun name="Omicron" type="LaunchSettings" />
+    <toRun name="Sigma" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>

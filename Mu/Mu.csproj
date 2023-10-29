@@ -8,16 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Clients\Mu.Client\Mu.Client.csproj" />
-      <ProjectReference Include="..\Shared.MassTransit\Shared.MassTransit.csproj" />
-      <ProjectReference Include="..\Shared\Shared.csproj" />
+        <ProjectReference Include="..\Clients\Mu.Client\Mu.Client.csproj" />
+        <ProjectReference Include="..\Shared.MassTransit\Shared.MassTransit.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit" Version="$(MassTransitVersion)" />
-      <PackageReference Include="MassTransit.Analyzers" Version="$(MassTransitVersion)" />
-      <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
-      <PackageReference Update="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.2" />
+        <PackageReference Include="MassTransit" Version="$(MassTransitVersion)" />
+        <PackageReference Include="MassTransit.Analyzers" Version="$(MassTransitVersion)" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
     </ItemGroup>
 
 </Project>

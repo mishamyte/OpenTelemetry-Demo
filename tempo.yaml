@@ -1,7 +1,12 @@
-metrics_generator_enabled: true
-
 server:
   http_listen_port: 3200
+
+query_frontend:
+  search:
+    duration_slo: 5s
+    throughput_bytes_slo: 1.073741824e+09
+  trace_by_id:
+    duration_slo: 5s
 
 distributor:
   receivers:
@@ -37,11 +42,11 @@ storage:
     backend: local                     # backend configuration to use
     block:
       bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
-      index_downsample_bytes: 1000     # number of bytes per index record
-      encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd, s2
+      v2_index_downsample_bytes: 1000     # number of bytes per index record
+      v2_encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd, s2
     wal:
       path: /tmp/tempo/wal             # where to store the the wal locally
-      encoding: snappy                 # wal encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd, s2
+      v2_encoding: snappy                 # wal encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd, s2
     local:
       path: /tmp/tempo/blocks
     pool:
@@ -49,4 +54,4 @@ storage:
       queue_depth: 10000
 
 overrides:
-  metrics_generator_processors: [service-graphs, span-metrics]
+  metrics_generator_processors: [ service-graphs, span-metrics ]
