@@ -168,6 +168,24 @@ services:
     ports:
       - "5203:80"
 
+  nu:
+    build:
+      context: .
+      dockerfile: ./Nu/Dockerfile
+    container_name: otel-nu
+    depends_on:
+      - loki
+      - mongo
+      - otel-collector
+    image: otel-nu
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_URLS: http://*:80
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+    ports:
+      - "5205:80"
+
   omicron:
     build:
       context: .

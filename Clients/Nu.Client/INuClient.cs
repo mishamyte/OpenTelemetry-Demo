@@ -2,7 +2,7 @@
 
 namespace Nu.Client;
 
-public interface IWasabiClient
+public interface INuClient
 {
     [Get("/wasabi")]
     Task<WasabiDto> GetWasabi();

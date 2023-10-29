@@ -75,6 +75,28 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
+          "Port": 5205
+        }
+      ],
+      "UpstreamPathTemplate": "/nu/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/nu"
+      },
+      "SwaggerKey": "nu"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
           "Port": 5202
         }
       ],
@@ -120,6 +142,16 @@
           "Name": "Mu API",
           "Version": "v1",
           "Url": "http://localhost:5203/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "nu",
+      "Config": [
+        {
+          "Name": "Nu API",
+          "Version": "v1",
+          "Url": "http://localhost:5205/swagger/v1/swagger.json"
         }
       ]
     },

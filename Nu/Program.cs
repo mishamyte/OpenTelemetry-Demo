@@ -69,7 +69,6 @@ app.UseForwardedPathBase();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// TODO: Map to Dto after creation of the client
 app.MapGet(
         "/wasabi",
         async (IMongoClient mongoClient) =>
