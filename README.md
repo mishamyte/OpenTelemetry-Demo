@@ -22,6 +22,7 @@ Glory to Ukraine! 🇺🇦
     - [Alpha](#alpha)
     - [Epsilon](#epsilon)
     - [Mu](#mu)
+    - [Nu](#nu)
     - [Omicron](#omicron)
     - [Sigma](#sigma)
 - [Data flows](#data-flows)
@@ -40,6 +41,7 @@ It consists of:
 Solution consists of multiple services that use common infrastructure building blocks:
 - [Elasticsearch](https://www.elastic.co/) and [Kibana](https://www.elastic.co/kibana/)
 - [MassTransit](https://masstransit-project.com/) over RabbitMQ (https://www.rabbitmq.com/)
+- [MongoDB](https://www.mongodb.com/)
 - [PostgreSQL](https://www.postgresql.org/) with [Npgsql](https://www.npgsql.org/), using [EF Core](https://docs.microsoft.com/en-us/ef/core/) and [Dapper](https://github.com/DapperLib/Dapper)
 - [Redis](https://redis.io/) with [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis)
 
@@ -79,6 +81,12 @@ Data in elastic index is seeded on service launch. Currently it contains a singl
 Service built over *M*assTransit. Available on `http://localhost:5203` or via API gateway on `http://localhost:5200/mu`.
 
 Exposes two endpoints for `sending` command and `publishing` event. Handlers, receives this messages are in this service. Also has a handler for responding to `Alpha's` request via MassTransit.
+
+### Nu
+
+Service that uses Mo*n*goDB. Available on `http://localhost:5205` or via API gateway on `http://localhost:5200/nu`.
+
+Data in MongoDB is seeded on service launch. Currently it contains a single document, extracted by a simple filter.
 
 ### Omicron
 
