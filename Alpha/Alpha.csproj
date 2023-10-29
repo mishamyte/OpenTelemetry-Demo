@@ -9,13 +9,14 @@
     <ItemGroup>
       <ProjectReference Include="..\Clients\Epsilon.Client\Epsilon.Client.csproj" />
       <ProjectReference Include="..\Clients\Mu.Client\Mu.Client.csproj" />
+      <ProjectReference Include="..\Clients\Nu.Client\Nu.Client.csproj" />
       <ProjectReference Include="..\Shared.MassTransit\Shared.MassTransit.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
-      <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="$(OtelRcVersion)" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.6.0-beta.2" />
       <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
     </ItemGroup>
 

@@ -67,6 +67,7 @@ app.MapGet("/foo", async (IElasticClient elasticClient) =>
     .WithMetadata(new SwaggerOperationAttribute("Try to find foo in ElasticSearch"));
 
 await app.RunAsync();
+return;
 
 static void ClearAndSeedIndex(IServiceProvider serviceProvider)
 {

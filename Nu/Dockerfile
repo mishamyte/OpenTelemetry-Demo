@@ -6,10 +6,10 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 COPY . .
-WORKDIR /src/Alpha/
+WORKDIR /src/Nu/
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["dotnet", "Alpha.dll"]
+ENTRYPOINT ["dotnet", "Nu.dll"]

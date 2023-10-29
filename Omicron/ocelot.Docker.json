@@ -74,6 +74,28 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
+          "Host": "otel-nu",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/nu/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-PathBase": "/nu"
+      },
+      "SwaggerKey": "nu"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
           "Host": "otel-sigma",
           "Port": 80
         }
@@ -120,6 +142,16 @@
           "Name": "Mu API",
           "Version": "v1",
           "Url": "http://otel-mu/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "nu",
+      "Config": [
+        {
+          "Name": "Nu API",
+          "Version": "v1",
+          "Url": "http://otel-nu/swagger/v1/swagger.json"
         }
       ]
     },
