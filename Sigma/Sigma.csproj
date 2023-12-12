@@ -18,9 +18,9 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(EntityFrameworkCoreVersion)" />
-        <PackageReference Include="Npgsql" Version="8.0.0" />
+        <PackageReference Include="Npgsql" Version="8.0.1" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-        <PackageReference Include="Npgsql.OpenTelemetry" Version="8.0.0" />
+        <PackageReference Include="Npgsql.OpenTelemetry" Version="8.0.1" />
         <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.8" />
         <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.12" />
         <PackageReference Include="StackExchange.Redis" Version="2.7.4" />
