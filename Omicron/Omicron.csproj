@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="MMLib.SwaggerForOcelot" Version="8.1.0" />
-        <PackageReference Include="Ocelot" Version="22.0.1" />
+        <PackageReference Include="Ocelot" Version="23.0.0" />
         <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.7.1" />
     </ItemGroup>
     
