@@ -8,7 +8,7 @@
         <MassTransitVersion>8.2.2</MassTransitVersion>
         <OtelAlphaVersion>1.8.1</OtelAlphaVersion>
         <OtelRcVersion>1.8.1</OtelRcVersion>
-        <SwaggerVersion>6.5.0</SwaggerVersion>
+        <SwaggerVersion>6.6.1</SwaggerVersion>
     </PropertyGroup>
 
     <ItemGroup>
