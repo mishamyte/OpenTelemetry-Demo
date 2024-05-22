@@ -16,7 +16,7 @@
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OtelAlphaVersion)" />
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OtelAlphaVersion)" />
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OtelRcVersion)" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
         <PackageReference Include="Serilog.Enrichers.Span" Version="3.1.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
