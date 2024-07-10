@@ -4,7 +4,7 @@
     <PropertyGroup>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
         <!-- Dependencies versions -->
-        <EntityFrameworkCoreVersion>8.0.6</EntityFrameworkCoreVersion>
+        <EntityFrameworkCoreVersion>8.0.7</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.2.3</MassTransitVersion>
         <OtelAlphaVersion>1.9.0</OtelAlphaVersion>
         <OtelRcVersion>1.9.0</OtelRcVersion>
