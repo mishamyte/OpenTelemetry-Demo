@@ -5,10 +5,10 @@
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
         <!-- Dependencies versions -->
         <EntityFrameworkCoreVersion>8.0.8</EntityFrameworkCoreVersion>
-        <MassTransitVersion>8.2.3</MassTransitVersion>
+        <MassTransitVersion>8.2.4</MassTransitVersion>
         <OtelAlphaVersion>1.9.0</OtelAlphaVersion>
         <OtelRcVersion>1.9.0</OtelRcVersion>
-        <SwaggerVersion>6.6.2</SwaggerVersion>
+        <SwaggerVersion>6.7.0</SwaggerVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,9 +17,9 @@
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="$(OtelAlphaVersion)" />
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OtelRcVersion)" />
         <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
         <PackageReference Include="Serilog.Enrichers.Span" Version="3.1.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
         <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.0" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
