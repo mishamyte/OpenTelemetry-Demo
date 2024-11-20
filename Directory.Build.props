@@ -6,7 +6,7 @@
         <!-- Dependencies versions -->
         <EntityFrameworkCoreVersion>9.0.0</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.3.1</MassTransitVersion>
-        <OtelAlphaVersion>1.9.0</OtelAlphaVersion>
+        <OtelAlphaVersion>1.10.0</OtelAlphaVersion>
         <OtelRcVersion>1.9.0</OtelRcVersion>
         <SwaggerVersion>7.0.0</SwaggerVersion>
     </PropertyGroup>
