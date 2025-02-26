@@ -16,35 +16,40 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen(options =>
-    {
-        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
-        options.DescribeAllParametersInCamelCase();
-        options.EnableAnnotations();
-    });
+    .AddSwaggerGen(
+        options =>
+        {
+            options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+            options.DescribeAllParametersInCamelCase();
+            options.EnableAnnotations();
+        });
 
 var connectionSettings = new ConnectionSettings(new Uri(configuration["Elasticsearch:Uri"]!))
     .DefaultIndex(indexName);
 services.AddSingleton<IElasticClient>(_ => new ElasticClient(connectionSettings));
 
-services.AddOpenTelemetry().WithTracing(providerBuilder =>
-    {
-        providerBuilder
-            .AddSource(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddElasticsearchClientInstrumentation()
-            .AddOtlpExporter();
-    })
-    .WithMetrics(providerBuilder =>
-    {
-        providerBuilder
-            .AddMeter(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddRuntimeInstrumentation()
-            .AddOtlpExporter();
-    });
+services.AddOpenTelemetry().WithTracing(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddSource(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddElasticsearchClientInstrumentation()
+                .AddOtlpExporter();
+        })
+    .WithMetrics(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddMeter(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddOtlpExporter();
+        });
 
 var app = builder.Build();
 
@@ -55,14 +60,16 @@ app.UseForwardedPathBase();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/foo", async (IElasticClient elasticClient) =>
-    {
-        var entities = await elasticClient
-            .SearchAsync<Foo>(s => s.Query(q => q.MatchAll()));
-        var entity = entities.Documents.First();
+app.MapGet(
+        "/foo",
+        async (IElasticClient elasticClient) =>
+        {
+            var entities = await elasticClient
+                .SearchAsync<Foo>(s => s.Query(q => q.MatchAll()));
+            var entity = entities.Documents.First();
 
-        return Results.Ok(new FooDto(entity.Id, entity.Name));
-    })
+            return Results.Ok(new FooDto(entity.Id, entity.Name));
+        })
     .Produces<FooDto>()
     .WithMetadata(new SwaggerOperationAttribute("Try to find foo in ElasticSearch"));
 

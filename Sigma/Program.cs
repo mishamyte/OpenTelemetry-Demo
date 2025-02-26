@@ -29,42 +29,48 @@ services.AddDbContext<SigmaContext>(options => options.UseNpgsql(connectionStrin
 IConnectionMultiplexer redisConnectionMultiplexer =
     await ConnectionMultiplexer.ConnectAsync(configuration.GetConnectionString("Redis")!);
 services.AddSingleton(redisConnectionMultiplexer);
-services.AddStackExchangeRedisCache(options =>
-    options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
+services.AddStackExchangeRedisCache(
+    options =>
+        options.ConnectionMultiplexerFactory = () => Task.FromResult(redisConnectionMultiplexer));
 
 // MediatR + Tracing Behavior for it's handlers
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TracingBehavior<,>));
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen(options =>
-    {
-        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
-        options.DescribeAllParametersInCamelCase();
-        options.EnableAnnotations();
-    });
+    .AddSwaggerGen(
+        options =>
+        {
+            options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+            options.DescribeAllParametersInCamelCase();
+            options.EnableAnnotations();
+        });
 
 services.AddOpenTelemetry()
-    .WithTracing(providerBuilder =>
-    {
-        providerBuilder
-            .AddSource(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddEntityFrameworkCoreInstrumentation()
-            .AddNpgsql()
-            .AddRedisInstrumentation()
-            .AddOtlpExporter();
-    }).WithMetrics(providerBuilder =>
-    {
-        providerBuilder
-            .AddMeter(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault()
-                .AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddRuntimeInstrumentation()
-            .AddOtlpExporter();
-    });
+    .WithTracing(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddSource(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation()
+                .AddNpgsql()
+                .AddRedisInstrumentation()
+                .AddOtlpExporter();
+        }).WithMetrics(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddMeter(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault()
+                        .AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddOtlpExporter();
+        });
 
 var app = builder.Build();
 
@@ -79,21 +85,25 @@ app.UseForwardedPathBase();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/user/{id:guid}", async (Guid id, IMediator mediator) =>
-    {
-        var entity = await mediator.Send(new GetUserByIdQuery { Id = id });
-        return entity != null ? Results.Ok(entity) : Results.NotFound();
-    })
+app.MapGet(
+        "/user/{id:guid}",
+        async (Guid id, IMediator mediator) =>
+        {
+            var entity = await mediator.Send(new GetUserByIdQuery { Id = id });
+            return entity != null ? Results.Ok(entity) : Results.NotFound();
+        })
     .Produces<GetUserByIdQuery.User>()
     .Produces(StatusCodes.Status404NotFound)
     .WithMetadata(
         new SwaggerOperationAttribute("Try to find user in Redis, otherwise try to find it in Posgres with EF Core"));
 
-app.MapGet("/user/list", async (IMediator mediator) =>
-    {
-        var entities = await mediator.Send(new GetAllUsersQuery());
-        return Results.Ok(entities);
-    })
+app.MapGet(
+        "/user/list",
+        async (IMediator mediator) =>
+        {
+            var entities = await mediator.Send(new GetAllUsersQuery());
+            return Results.Ok(entities);
+        })
     .Produces<IEnumerable<GetAllUsersQuery.User>>()
     .WithMetadata(new SwaggerOperationAttribute("Get all users from Postgres via Dapper"));
 

@@ -13,8 +13,14 @@ var (environment, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 builder.Configuration
-    .AddJsonFile("ocelot.json", false, true)
-    .AddJsonFile($"ocelot.{environment.EnvironmentName}.json", true, true);
+    .AddJsonFile(
+        "ocelot.json",
+        false,
+        true)
+    .AddJsonFile(
+        $"ocelot.{environment.EnvironmentName}.json",
+        true,
+        true);
 
 services.AddOcelot();
 
@@ -25,25 +31,29 @@ services
 services.AddSwaggerForOcelot(configuration);
 
 services.AddOpenTelemetry()
-    .WithTracing(providerBuilder =>
-    {
-        providerBuilder
-            .AddSource(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddOtlpExporter();
-    })
-    .WithMetrics(providerBuilder =>
-    {
-        providerBuilder
-            .AddMeter(serviceName)
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddRuntimeInstrumentation()
-            .AddOtlpExporter();
-    });
+    .WithTracing(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddSource(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddOtlpExporter();
+        })
+    .WithMetrics(
+        providerBuilder =>
+        {
+            providerBuilder
+                .AddMeter(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddOtlpExporter();
+        });
 
 var app = builder.Build();
 

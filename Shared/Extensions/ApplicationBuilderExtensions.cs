@@ -8,15 +8,16 @@ public static class ApplicationBuilderExtensions
 {
     public static IApplicationBuilder UseForwardedPathBase(this IApplicationBuilder app)
     {
-        app.Use((context, next) =>
-        {
-            if (context.Request.Headers.TryGetValue("X-Forwarded-PathBase", out var pathsBase))
+        app.Use(
+            (context, next) =>
             {
-                context.Request.PathBase = new PathString(pathsBase);
-            }
+                if (context.Request.Headers.TryGetValue("X-Forwarded-PathBase", out var pathsBase))
+                {
+                    context.Request.PathBase = new PathString(pathsBase);
+                }
 
-            return next();
-        });
+                return next();
+            });
 
         return app;
     }

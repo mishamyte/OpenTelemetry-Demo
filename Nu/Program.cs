@@ -1,3 +1,6 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 using Nu;
@@ -16,6 +19,8 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 var connectionString = configuration.GetConnectionString(serviceName);
+
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
 services.AddSingleton<IMongoClient, MongoClient>(
     _ =>
@@ -80,8 +85,7 @@ app.MapGet(
         })
     .Produces<WasabiDto>()
     .Produces(StatusCodes.Status404NotFound)
-    .WithMetadata(
-        new SwaggerOperationAttribute("Try to find wasabi in Mongo"));
+    .WithMetadata(new SwaggerOperationAttribute("Try to find wasabi in Mongo"));
 
 await app.RunAsync();
 return;
