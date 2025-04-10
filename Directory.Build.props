@@ -10,7 +10,7 @@
         <!-- Dependencies versions -->
         <EntityFrameworkCoreVersion>9.0.4</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.4.0</MassTransitVersion>
-        <SwaggerVersion>8.1.0</SwaggerVersion>
+        <SwaggerVersion>8.1.1</SwaggerVersion>
     </PropertyGroup>
 
     <ItemGroup>
