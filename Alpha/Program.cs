@@ -20,13 +20,12 @@ var (_, services, configuration, _, _, _) = builder;
 builder.UseSerilog();
 
 services.AddEndpointsApiExplorer()
-    .AddSwaggerGen(
-        options =>
-        {
-            options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
-            options.DescribeAllParametersInCamelCase();
-            options.EnableAnnotations();
-        });
+    .AddSwaggerGen(options =>
+    {
+        options.CustomSchemaIds(type => type.FullName!.Replace('+', '.'));
+        options.DescribeAllParametersInCamelCase();
+        options.EnableAnnotations();
+    });
 
 // Refit Http Clients
 services
@@ -40,54 +39,48 @@ services
 // MassTransit over RabbitMq
 services.Configure<MassTransitOptions>(configuration.GetSection(nameof(MassTransitOptions)));
 
-services.AddMassTransit(
-    configurator =>
+services.AddMassTransit(configurator =>
+{
+    configurator.SetKebabCaseEndpointNameFormatter();
+
+    configurator.UsingRabbitMq((ctx, cfg) =>
     {
-        configurator.SetKebabCaseEndpointNameFormatter();
+        var options = ctx.GetRequiredService<IOptions<MassTransitOptions>>().Value;
 
-        configurator.UsingRabbitMq(
-            (ctx, cfg) =>
+        cfg.Host(
+            options.Host,
+            host =>
             {
-                var options = ctx.GetRequiredService<IOptions<MassTransitOptions>>().Value;
-
-                cfg.Host(
-                    options.Host,
-                    host =>
-                    {
-                        host.Username(options.Username);
-                        host.Password(options.Password);
-                    });
-
-                cfg.ConfigureEndpoints(ctx);
+                host.Username(options.Username);
+                host.Password(options.Password);
             });
+
+        cfg.ConfigureEndpoints(ctx);
     });
+});
 
 services.AddMuClient();
 
 services.AddOpenTelemetry()
-    .WithTracing(
-        providerBuilder =>
-        {
-            providerBuilder
-                .AddSource(serviceName)
-                .AddSource("MassTransit")
-                .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddOtlpExporter();
-        }).WithMetrics(
-        providerBuilder =>
-        {
-            providerBuilder
-                .AddMeter(serviceName)
-                .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddRuntimeInstrumentation()
-                .AddOtlpExporter();
-        });
+    .WithTracing(providerBuilder =>
+    {
+        providerBuilder
+            .AddSource(serviceName)
+            .AddSource("MassTransit")
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter();
+    }).WithMetrics(providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter();
+    });
 
 var app = builder.Build();
 

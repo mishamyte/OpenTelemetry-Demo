@@ -31,29 +31,25 @@ services
 services.AddSwaggerForOcelot(configuration);
 
 services.AddOpenTelemetry()
-    .WithTracing(
-        providerBuilder =>
-        {
-            providerBuilder
-                .AddSource(serviceName)
-                .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddOtlpExporter();
-        })
-    .WithMetrics(
-        providerBuilder =>
-        {
-            providerBuilder
-                .AddMeter(serviceName)
-                .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddRuntimeInstrumentation()
-                .AddOtlpExporter();
-        });
+    .WithTracing(providerBuilder =>
+    {
+        providerBuilder
+            .AddSource(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter();
+    })
+    .WithMetrics(providerBuilder =>
+    {
+        providerBuilder
+            .AddMeter(serviceName)
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter();
+    });
 
 var app = builder.Build();
 
