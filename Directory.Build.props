@@ -8,7 +8,7 @@
         <Nullable>enable</Nullable>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
         <!-- Dependencies versions -->
-        <EntityFrameworkCoreVersion>9.0.8</EntityFrameworkCoreVersion>
+        <EntityFrameworkCoreVersion>9.0.9</EntityFrameworkCoreVersion>
         <MassTransitVersion>8.5.1</MassTransitVersion>
         <SwaggerVersion>9.0.4</SwaggerVersion>
     </PropertyGroup>
