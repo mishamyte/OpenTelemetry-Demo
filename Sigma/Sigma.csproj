@@ -12,7 +12,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(EntityFrameworkCoreVersion)" />
-        <PackageReference Include="Npgsql" Version="9.0.3" />
+        <PackageReference Include="Npgsql" Version="9.0.4" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="Npgsql.OpenTelemetry" Version="9.0.3" />
         <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.11.0-beta.2" />
