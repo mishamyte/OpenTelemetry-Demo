@@ -9,7 +9,7 @@
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
         <!-- Dependencies versions -->
         <EntityFrameworkCoreVersion>9.0.10</EntityFrameworkCoreVersion>
-        <MassTransitVersion>8.5.4</MassTransitVersion>
+        <MassTransitVersion>8.5.5</MassTransitVersion>
         <SwaggerVersion>9.0.6</SwaggerVersion>
     </PropertyGroup>
 
