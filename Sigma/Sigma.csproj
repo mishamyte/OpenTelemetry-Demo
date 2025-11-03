@@ -2,7 +2,7 @@
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66" />
-        <PackageReference Include="MediatR" Version="13.0.0" />
+        <PackageReference Include="MediatR" Version="13.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EntityFrameworkCoreVersion)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="$(EntityFrameworkCoreVersion)" />
