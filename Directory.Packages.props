@@ -40,7 +40,6 @@
         <PackageVersion Include="Refit" Version="11.0.1"/>
         <PackageVersion Include="Refit.HttpClientFactory" Version="11.0.1"/>
         <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
-        <PackageVersion Include="Serilog.Enrichers.Span" Version="3.1.0"/>
         <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.0"/>
         <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
         <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.0"/>
