@@ -13,7 +13,7 @@ services:
       transport.host: 127.0.0.1
       xpack.security.enabled: false
     healthcheck:
-      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1"]
+      test: [ "CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1" ]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -57,7 +57,7 @@ services:
     image: mongo
     container_name: otel-mongo
     healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      test: [ "CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok" ]
       interval: 5s
       timeout: 5s
       retries: 12
@@ -85,7 +85,7 @@ services:
     environment:
       POSTGRES_PASSWORD: example
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 5s
       retries: 12
@@ -108,7 +108,7 @@ services:
     image: rabbitmq:4.3.1-management
     container_name: otel-rabbitmq
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
       interval: 5s
       timeout: 10s
       retries: 12
@@ -120,7 +120,7 @@ services:
     image: redis
     container_name: otel-redis
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 5s
       retries: 12
@@ -135,7 +135,7 @@ services:
       - "3200:3200"
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml
-      - ./tempo-data:/tmp/tempo
+      - tempo-data:/var/tempo
 
   # Application
 
@@ -264,3 +264,6 @@ services:
       OTEL_EXPORTER_OTLP_PROTOCOL: grpc
     ports:
       - "5202:80"
+
+volumes:
+  tempo-data:

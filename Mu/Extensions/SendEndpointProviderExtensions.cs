@@ -7,8 +7,10 @@ public static class SendEndpointProviderExtensions
     extension(ISendEndpointProvider sendEndpointProvider)
     {
         public async Task<ISendEndpoint> GetSendEndpoint<T>()
-            where T : class =>
-            await sendEndpointProvider.GetSendEndpoint(
+            where T : class
+        {
+            return await sendEndpointProvider.GetSendEndpoint(
                 new Uri($"queue:{KebabCaseEndpointNameFormatter.Instance.Message<T>()}"));
+        }
     }
 }

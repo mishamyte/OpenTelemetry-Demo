@@ -74,6 +74,18 @@ jobs:
             -X POST -H "Content-Type: application/json" \
             -d '{"payload":"ci-smoke"}' http://localhost:5200/mu/publish
 
+      - name: Smoke test — traces reached Tempo
+        run: |
+          for _ in $(seq 1 15); do
+            if curl --fail --silent "http://localhost:3200/api/search?limit=5" \
+              | jq -e '.traces | length > 0'; then
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "no traces found in Tempo" >&2
+          exit 1
+
       - name: Dump container logs
         if: failure()
         run: docker compose logs --tail 100

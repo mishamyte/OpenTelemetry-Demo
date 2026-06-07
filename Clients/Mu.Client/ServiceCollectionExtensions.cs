@@ -6,6 +6,9 @@ public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public void AddMuClient() => services.AddTransient<IMuClient, MuClient>();
+        public void AddMuClient()
+        {
+            services.AddTransient<IMuClient, MuClient>();
+        }
     }
 }

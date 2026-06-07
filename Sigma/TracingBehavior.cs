@@ -16,6 +16,6 @@ public class TracingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         using var activity = ActivitySource.StartActivity(typeof(TRequest).FullName!);
         activity?.SetTag("RequestType", typeof(TRequest));
         activity?.SetTag("ResponseType", typeof(TResponse));
-        return next();
+        return next(cancellationToken);
     }
 }

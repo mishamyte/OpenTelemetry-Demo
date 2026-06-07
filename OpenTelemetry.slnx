@@ -1,29 +1,29 @@
 <Solution>
-  <Folder Name="/Clients/">
-    <Project Path="Clients/Epsilon.Client/Epsilon.Client.csproj" />
-    <Project Path="Clients/Mu.Client/Mu.Client.csproj" />
-    <Project Path="Clients/Nu.Client/Nu.Client.csproj" />
-  </Folder>
-  <Folder Name="/Solution Items/">
-    <File Path=".dockerignore" />
-    <File Path=".gitignore" />
-    <File Path="Directory.Build.props" />
-    <File Path="Directory.Packages.props" />
-    <File Path="docker-compose.yaml" />
-    <File Path="grafana-datasources.yaml" />
-    <File Path="LICENSE" />
-    <File Path="otel-collector-config.yaml" />
-    <File Path="prometheus.yaml" />
-    <File Path="README.md" />
-    <File Path="StyleCop.ruleset" />
-    <File Path="tempo.yaml" />
-  </Folder>
-  <Project Path="Alpha/Alpha.csproj" />
-  <Project Path="Epsilon/Epsilon.csproj" />
-  <Project Path="Mu/Mu.csproj" />
-  <Project Path="Nu/Nu.csproj" />
-  <Project Path="Omicron/Omicron.csproj" />
-  <Project Path="Shared.MassTransit/Shared.MassTransit.csproj" />
-  <Project Path="Shared/Shared.csproj" />
-  <Project Path="Sigma/Sigma.csproj" />
+    <Folder Name="/Clients/">
+        <Project Path="Clients/Epsilon.Client/Epsilon.Client.csproj"/>
+        <Project Path="Clients/Mu.Client/Mu.Client.csproj"/>
+        <Project Path="Clients/Nu.Client/Nu.Client.csproj"/>
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".dockerignore"/>
+        <File Path=".gitignore"/>
+        <File Path="Directory.Build.props"/>
+        <File Path="Directory.Packages.props"/>
+        <File Path="docker-compose.yaml"/>
+        <File Path="grafana-datasources.yaml"/>
+        <File Path="LICENSE"/>
+        <File Path="otel-collector-config.yaml"/>
+        <File Path="prometheus.yaml"/>
+        <File Path="README.md"/>
+        <File Path="StyleCop.ruleset"/>
+        <File Path="tempo.yaml"/>
+    </Folder>
+    <Project Path="Alpha/Alpha.csproj"/>
+    <Project Path="Epsilon/Epsilon.csproj"/>
+    <Project Path="Mu/Mu.csproj"/>
+    <Project Path="Nu/Nu.csproj"/>
+    <Project Path="Omicron/Omicron.csproj"/>
+    <Project Path="Shared.MassTransit/Shared.MassTransit.csproj"/>
+    <Project Path="Shared/Shared.csproj"/>
+    <Project Path="Sigma/Sigma.csproj"/>
 </Solution>
