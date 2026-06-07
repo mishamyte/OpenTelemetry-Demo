@@ -49,7 +49,7 @@ It consists of:
 Solution consists of multiple services that use common infrastructure building blocks:
 
 - [Elasticsearch](https://www.elastic.co/) and [Kibana](https://www.elastic.co/kibana/)
-- [MassTransit](https://masstransit-project.com/) over RabbitMQ (https://www.rabbitmq.com/)
+- [MassTransit](https://masstransit.io/) over RabbitMQ (https://www.rabbitmq.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [PostgreSQL](https://www.postgresql.org/) with [Npgsql](https://www.npgsql.org/),
   using [EF Core](https://docs.microsoft.com/en-us/ef/core/) and [Dapper](https://github.com/DapperLib/Dapper)
@@ -60,6 +60,9 @@ Solution consists of multiple services that use common infrastructure building b
 ![Architecture diagram](./docs/architecture-diagram.png)
 
 ## How to run?
+
+You will need [Docker](https://www.docker.com/) and, for running services from an
+IDE, [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 You could run solution fully in containers, using
 
@@ -77,8 +80,8 @@ In both cases entry point will be available by address `http://localhost:5200/sw
 
 *A*ggregating service. Available on `http://localhost:5201` or via API gateway on `http://localhost:5200/alpha`.
 
-Under the hood it does two requests to `Epsilon` service, using [Refit](https://github.com/reactiveui/refit) and `Mu`,
-using [MassTransit's request/response feature](https://masstransit-project.com/usage/requests.html).
+Under the hood it does requests to `Epsilon` and `Nu` services, using [Refit](https://github.com/reactiveui/refit), and
+to `Mu`, using [MassTransit's request/response feature](https://masstransit.io/documentation/concepts/requests).
 It is a good entrypoint to look how request will be routed through the system components.
 
 ### Epsilon
@@ -106,8 +109,8 @@ Data in MongoDB is seeded on service launch. Currently it contains a single docu
 
 API Gateway build with [Ocelot](https://github.com/ThreeMammals/Ocelot). Acts as a reverse proxy. Available on
 `http://localhost:5200`.
-Also aggregates downstream services' swagger docs, using [SwaggerForOcelot](https://github.com/ThreeMammals/Ocelot)
-project.
+Also aggregates downstream services' swagger docs,
+using [SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot) project.
 
 Exposes aggregated Swagger UI & Swagger Doc on `http://localhost:5200/swagger`.
 
@@ -125,8 +128,10 @@ Exposes 3 endpoints:
 
 ## Data flows
 
-- _Logs_. Are passed directly to Loki, using corresponding Serilog's sink.
-- _Metrics_. Are exported to OTEL and scrapped by Prometheus from it.
+- _Logs_. Are passed directly to Loki, using corresponding Serilog's sink. Trace and span IDs are attached
+  as [structured metadata](https://grafana.com/docs/loki/latest/get-started/labels/structured-metadata/), so you could
+  jump from a log line straight to the corresponding trace in Grafana.
+- _Metrics_. Are exported to OTEL and scraped by Prometheus from it.
 - _Traces_. Are exported to OTEL and passed to Tempo by OTEL.
 
 ## Contributing
