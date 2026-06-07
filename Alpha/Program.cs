@@ -96,9 +96,15 @@ app.MapGet(
             IMuClient muClient,
             INuClient nuClient) =>
         {
-            var foo = await epsilonClient.GetFoo();
-            var bar = await muClient.GetBar();
-            var wasabi = await nuClient.GetWasabi();
+            var fooTask = epsilonClient.GetFoo();
+            var barTask = muClient.GetBar();
+            var wasabiTask = nuClient.GetWasabi();
+
+            await Task.WhenAll(fooTask, barTask, wasabiTask);
+
+            var foo = await fooTask;
+            var bar = await barTask;
+            var wasabi = await wasabiTask;
 
             var aggregate = new Aggregate
             {

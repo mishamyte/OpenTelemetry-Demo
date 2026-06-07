@@ -80,7 +80,8 @@ In both cases entry point will be available by address `http://localhost:5200/sw
 
 *A*ggregating service. Available on `http://localhost:5201` or via API gateway on `http://localhost:5200/alpha`.
 
-Under the hood it does requests to `Epsilon` and `Nu` services, using [Refit](https://github.com/reactiveui/refit), and
+Under the hood it concurrently does requests to `Epsilon` and `Nu` services,
+using [Refit](https://github.com/reactiveui/refit), and
 to `Mu`, using [MassTransit's request/response feature](https://masstransit.io/documentation/concepts/requests).
 It is a good entrypoint to look how request will be routed through the system components.
 
