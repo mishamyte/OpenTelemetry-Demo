@@ -105,7 +105,7 @@ services:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
 
   rabbitmq:
-    image: rabbitmq:4.3.1-management
+    image: rabbitmq:management
     container_name: otel-rabbitmq
     healthcheck:
       test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
