@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -7,24 +7,15 @@ using Sigma.Persistence.Entities;
 
 namespace Sigma.Queries;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdQuery.User?>
+public class GetUserByIdQueryHandler(
+    IDistributedCache cache,
+    SigmaContext context) : IRequestHandler<GetUserByIdQuery, GetUserByIdQuery.User?>
 {
-    private readonly IDistributedCache _cache;
-    private readonly SigmaContext _context;
-
-    public GetUserByIdQueryHandler(
-        IDistributedCache cache,
-        SigmaContext context)
-    {
-        _cache = cache;
-        _context = context;
-    }
-
     public async Task<GetUserByIdQuery.User?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
         User? entity;
 
-        var entry = await _cache.GetAsync(request.Id.ToString(), cancellationToken);
+        var entry = await cache.GetAsync(request.Id.ToString(), cancellationToken);
 
         if (entry != null)
         {
@@ -32,12 +23,12 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUser
         }
         else
         {
-            entity = await _context.Set<User>().FirstOrDefaultAsync(user => user.Id == request.Id, cancellationToken);
+            entity = await context.Set<User>().FirstOrDefaultAsync(user => user.Id == request.Id, cancellationToken);
 
             if (entity != null)
             {
                 var bytes = JsonSerializer.SerializeToUtf8Bytes(entity);
-                await _cache.SetAsync(
+                await cache.SetAsync(
                     request.Id.ToString(),
                     bytes,
                     new DistributedCacheEntryOptions { SlidingExpiration = TimeSpan.FromSeconds(30) },

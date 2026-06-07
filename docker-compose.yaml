@@ -1,10 +1,8 @@
-version: "3.9"
-
 services:
   # Infrastructure
 
   elasticsearch:
-    image: elasticsearch:8.3.3
+    image: elasticsearch:9.4.2
     container_name: otel-elasticsearch
     deploy:
       resources:
@@ -14,6 +12,11 @@ services:
       http.host: 0.0.0.0
       transport.host: 127.0.0.1
       xpack.security.enabled: false
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
     ports:
       - "9200:9200"
 
@@ -34,7 +37,7 @@ services:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
 
   kibana:
-    image: kibana:8.3.3
+    image: kibana:9.4.2
     container_name: otel-kibana
     depends_on:
       - elasticsearch
@@ -53,6 +56,11 @@ services:
   mongo:
     image: mongo
     container_name: otel-mongo
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
     ports:
       - 27017:27017
 
@@ -76,20 +84,34 @@ services:
     container_name: otel-postgres
     environment:
       POSTGRES_PASSWORD: example
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
     ports:
       - "5432:5432"
 
   prometheus:
     image: prom/prometheus:latest
     container_name: otel-prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-remote-write-receiver"
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
 
   rabbitmq:
-    image: rabbitmq:3.10.7-management
+    image: rabbitmq:4.3.1-management
     container_name: otel-rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 12
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -97,6 +119,11 @@ services:
   redis:
     image: redis
     container_name: otel-redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
     ports:
       - "6379:6379"
 
@@ -118,11 +145,16 @@ services:
       dockerfile: ./Alpha/Dockerfile
     container_name: otel-alpha
     depends_on:
-      - epsilon
-      - loki
-      - mu
-      - otel-collector
-      - rabbitmq
+      epsilon:
+        condition: service_started
+      loki:
+        condition: service_started
+      mu:
+        condition: service_started
+      otel-collector:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     image: otel-alpha
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -138,9 +170,12 @@ services:
       dockerfile: ./Epsilon/Dockerfile
     container_name: otel-epsilon
     depends_on:
-      - elasticsearch
-      - loki
-      - otel-collector
+      elasticsearch:
+        condition: service_healthy
+      loki:
+        condition: service_started
+      otel-collector:
+        condition: service_started
     image: otel-epsilon
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -156,9 +191,12 @@ services:
       dockerfile: ./Mu/Dockerfile
     container_name: otel-mu
     depends_on:
-      - loki
-      - otel-collector
-      - rabbitmq
+      loki:
+        condition: service_started
+      otel-collector:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     image: otel-mu
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -174,9 +212,12 @@ services:
       dockerfile: ./Nu/Dockerfile
     container_name: otel-nu
     depends_on:
-      - loki
-      - mongo
-      - otel-collector
+      loki:
+        condition: service_started
+      mongo:
+        condition: service_healthy
+      otel-collector:
+        condition: service_started
     image: otel-nu
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -207,10 +248,14 @@ services:
       dockerfile: ./Sigma/Dockerfile
     container_name: otel-sigma
     depends_on:
-      - loki
-      - otel-collector
-      - postgres
-      - redis
+      loki:
+        condition: service_started
+      otel-collector:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     image: otel-sigma
     environment:
       ASPNETCORE_ENVIRONMENT: Docker

@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit" Version="$(MassTransitVersion)" />
-        <PackageReference Include="MassTransit.Analyzers" Version="$(MassTransitVersion)" />
+        <PackageReference Include="MassTransit" />
+        <PackageReference Include="MassTransit.Analyzers" />
     </ItemGroup>
 
 </Project>

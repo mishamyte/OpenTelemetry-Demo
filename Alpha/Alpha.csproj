@@ -9,9 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransitVersion)" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
-        <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+        <PackageReference Include="Refit.HttpClientFactory" />
     </ItemGroup>
 
 </Project>

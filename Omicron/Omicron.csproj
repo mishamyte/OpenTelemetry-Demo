@@ -5,9 +5,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MMLib.SwaggerForOcelot" Version="9.0.0" />
-        <PackageReference Include="Ocelot" Version="24.1.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
+        <PackageReference Include="MMLib.SwaggerForOcelot" />
+        <PackageReference Include="Ocelot" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
     </ItemGroup>
 
 </Project>

@@ -2,11 +2,12 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: "0.0.0.0:4317"
 
 exporters:
 
-  logging:
-    loglevel: debug
+  debug:
+    verbosity: detailed
 
   otlp:
     endpoint: "otel-tempo:4317"
@@ -24,12 +25,12 @@ service:
     traces:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, otlp ]
+      exporters: [ debug, otlp ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, prometheus ]
+      exporters: [ debug, prometheus ]
     # logs:
     #  receivers: [otlp]
     #  processors: []
-    #  exporters: [logging, file]
+    #  exporters: [debug, file]

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 // ReSharper disable once CheckNamespace
@@ -6,18 +6,21 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ApplicationBuilderExtensions
 {
-    public static IApplicationBuilder UseForwardedPathBase(this IApplicationBuilder app)
+    extension(IApplicationBuilder app)
     {
-        app.Use((context, next) =>
+        public IApplicationBuilder UseForwardedPathBase()
         {
-            if (context.Request.Headers.TryGetValue("X-Forwarded-PathBase", out var pathsBase))
+            app.Use((context, next) =>
             {
-                context.Request.PathBase = new PathString(pathsBase);
-            }
+                if (context.Request.Headers.TryGetValue("X-Forwarded-PathBase", out var pathsBase))
+                {
+                    context.Request.PathBase = new PathString(pathsBase);
+                }
 
-            return next();
-        });
+                return next();
+            });
 
-        return app;
+            return app;
+        }
     }
 }
