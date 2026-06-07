@@ -6,6 +6,13 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
 env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
@@ -26,7 +33,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: DotNet Info
         run: dotnet --info
@@ -36,3 +43,49 @@ jobs:
 
       - name: Build
         run: dotnet build -c Release --no-restore
+
+  docker-smoke:
+    name: docker compose smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Start stack
+        run: docker compose up -d --wait
+
+      - name: Smoke test — aggregate flow (gateway → Alpha → Epsilon/Mu/Nu)
+        run: |
+          curl --fail --silent --show-error --retry 30 --retry-delay 2 --retry-all-errors \
+            http://localhost:5200/alpha/aggregate \
+            | jq -e '.fooName == "Foo" and .barCost == 42 and .wasabiName == "Wasabi"'
+
+      - name: Smoke test — Sigma (Postgres + Redis)
+        run: |
+          curl --fail --silent --show-error --retry 10 --retry-delay 2 --retry-all-errors \
+            http://localhost:5200/sigma/user/list | jq -e 'length >= 2'
+
+      - name: Smoke test — Mu publish (RabbitMQ)
+        run: |
+          curl --fail --silent --show-error --retry 10 --retry-delay 2 --retry-all-errors \
+            -X POST -H "Content-Type: application/json" \
+            -d '{"payload":"ci-smoke"}' http://localhost:5200/mu/publish
+
+      - name: Smoke test — traces reached Tempo
+        run: |
+          for _ in $(seq 1 15); do
+            if curl --fail --silent "http://localhost:3200/api/search?limit=5" \
+              | jq -e '.traces | length > 0'; then
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "no traces found in Tempo" >&2
+          exit 1
+
+      - name: Dump container logs
+        if: failure()
+        run: docker compose logs --tail 100

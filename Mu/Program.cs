@@ -88,7 +88,7 @@ app.MapPost(
             await endpoint.Send<Command>(
                 new
                 {
-                    Payload = request.Payload
+                    request.Payload
                 },
                 cancellationToken);
 
@@ -107,7 +107,7 @@ app.MapPost(
             await publishEndpoint.Publish<Publish>(
                 new
                 {
-                    Payload = request.Payload
+                    request.Payload
                 },
                 cancellationToken);
 

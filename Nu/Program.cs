@@ -43,9 +43,9 @@ services.AddOpenTelemetry()
     {
         providerBuilder
             .AddSource(serviceName)
+            .AddSource(DiagnosticsActivityEventSubscriber.ActivitySourceName)
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName, serviceVersion: serviceVersion))
             .AddAspNetCoreInstrumentation()
-            .AddMongoDBInstrumentation()
             .AddOtlpExporter();
     })
     .WithMetrics(providerBuilder =>

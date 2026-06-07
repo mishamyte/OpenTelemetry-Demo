@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="Dapper" Version="2.1.79"/>
+        <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.4.2"/>
+        <!-- MassTransit is intentionally pinned to the 8.x line: v9+ moved to a commercial
+             license (free only via a <$1M revenue discount program), while 8.x remains
+             Apache 2.0 with security patches through the end of 2026. Do not bump to 9.x. -->
+        <PackageVersion Include="MassTransit" Version="8.5.10"/>
+        <PackageVersion Include="MassTransit.Analyzers" Version="8.5.10"/>
+        <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.10"/>
+        <PackageVersion Include="MediatR" Version="14.1.0"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.8"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.8"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="10.0.8"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.8"/>
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.8"/>
+        <PackageVersion Include="MMLib.SwaggerForOcelot" Version="10.0.2"/>
+        <PackageVersion Include="MongoDB.Driver" Version="3.9.0"/>
+        <PackageVersion Include="MongoDB.Driver.Core.Extensions.DiagnosticSources" Version="3.0.0"/>
+        <PackageVersion Include="Npgsql" Version="10.0.3"/>
+        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2"/>
+        <PackageVersion Include="Npgsql.OpenTelemetry" Version="10.0.3"/>
+        <PackageVersion Include="Ocelot" Version="24.1.0"/>
+        <PackageVersion Include="OpenTelemetry" Version="1.15.3"/>
+        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3"/>
+        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.15.1-beta.1"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.1-beta.2"/>
+        <PackageVersion Include="Refit" Version="11.0.1"/>
+        <PackageVersion Include="Refit.HttpClientFactory" Version="11.0.1"/>
+        <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
+        <PackageVersion Include="Serilog.Enrichers.Span" Version="3.1.0"/>
+        <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.0"/>
+        <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
+        <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.0"/>
+        <PackageVersion Include="StackExchange.Redis" Version="2.13.17"/>
+        <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.1"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.1"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.2.1"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.1"/>
+    </ItemGroup>
+
+</Project>

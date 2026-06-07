@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sigma.Persistence;
 
-public class SigmaContext : DbContext
+public class SigmaContext(DbContextOptions<SigmaContext> options) : DbContext(options)
 {
-    public SigmaContext(DbContextOptions<SigmaContext> options)
-        : base(options)
-    {
-    }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

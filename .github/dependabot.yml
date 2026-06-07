@@ -9,6 +9,10 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    ignore:
+      # MassTransit v9+ is commercially licensed; stay on the Apache 2.0 8.x line
+      - dependency-name: "MassTransit*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/" # Location of package manifests
