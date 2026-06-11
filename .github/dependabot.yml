@@ -13,8 +13,24 @@ updates:
       # MassTransit v9+ is commercially licensed; stay on the Apache 2.0 8.x line
       - dependency-name: "MassTransit*"
         update-types: ["version-update:semver-major"]
+    # With Central Package Management, family packages must move in lockstep,
+    # which made ungrouped Dependabot open individual PRs and then supersede
+    # them with ad-hoc "multi" PRs. One catch-all group for routine updates;
+    # majors stay individual so breaking changes get their own PR.
+    groups:
+      nuget:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      actions:
+        patterns:
+          - "*"
