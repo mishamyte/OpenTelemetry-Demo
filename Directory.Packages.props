@@ -38,7 +38,7 @@
         <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.1-beta.2"/>
         <PackageVersion Include="Refit" Version="12.0.0"/>
-        <PackageVersion Include="Refit.HttpClientFactory" Version="11.2.0"/>
+        <PackageVersion Include="Refit.HttpClientFactory" Version="12.0.0"/>
         <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
         <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1"/>
         <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
