@@ -37,13 +37,13 @@
         <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.16.0"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.1-beta.2"/>
-        <PackageVersion Include="Refit" Version="12.0.0"/>
-        <PackageVersion Include="Refit.HttpClientFactory" Version="12.0.0"/>
+        <PackageVersion Include="Refit" Version="12.1.0"/>
+        <PackageVersion Include="Refit.HttpClientFactory" Version="12.1.0"/>
         <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
         <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1"/>
         <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
         <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.1"/>
-        <PackageVersion Include="StackExchange.Redis" Version="3.0.7"/>
+        <PackageVersion Include="StackExchange.Redis" Version="3.0.11"/>
         <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.3"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.3"/>
