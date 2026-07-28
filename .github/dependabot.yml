@@ -17,7 +17,16 @@ updates:
     # which made ungrouped Dependabot open individual PRs and then supersede
     # them with ad-hoc "multi" PRs. One catch-all group for routine updates;
     # majors stay individual so breaking changes get their own PR.
+    # A dependency lands in the first group it matches, so order matters here.
     groups:
+      # Refit.HttpClientFactory takes an exact-or-higher dependency on Refit, so
+      # the two are only ever installable as a matched pair. Deliberately no
+      # update-types filter (unlike the catch-all below) so majors group too:
+      # v14 arrived as two separate PRs that each failed CI on their own.
+      refit:
+        applies-to: version-updates
+        patterns:
+          - "Refit*"
       nuget:
         applies-to: version-updates
         update-types:

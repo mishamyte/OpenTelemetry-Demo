@@ -29,11 +29,11 @@ services.AddEndpointsApiExplorer()
 
 // Refit Http Clients
 services
-    .AddRefitClient<IEpsilonClient>()
+    .AddRefitGeneratedClient<IEpsilonClient>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["EpsilonUri"]!));
 
 services
-    .AddRefitClient<INuClient>()
+    .AddRefitGeneratedClient<INuClient>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["NuUri"]!));
 
 // MassTransit over RabbitMq
