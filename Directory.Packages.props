@@ -28,7 +28,7 @@
         <PackageVersion Include="Npgsql" Version="10.0.3"/>
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3"/>
         <PackageVersion Include="Npgsql.OpenTelemetry" Version="10.0.3"/>
-        <PackageVersion Include="Ocelot" Version="24.1.0"/>
+        <PackageVersion Include="Ocelot" Version="25.0.0"/>
         <PackageVersion Include="OpenTelemetry" Version="1.17.0"/>
         <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0"/>
         <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0"/>
