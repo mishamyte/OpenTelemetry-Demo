@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageVersion Include="Dapper" Version="2.1.79"/>
-        <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.0"/>
+        <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.1"/>
         <!-- MassTransit is intentionally pinned to the 8.x line: v9+ moved to a commercial
              license (free only via a <$1M revenue discount program), while 8.x remains
              Apache 2.0 with security patches through the end of 2026. Do not bump to 9.x. -->
