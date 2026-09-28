@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageVersion Include="Dapper" Version="2.1.86"/>
-        <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.2"/>
+        <PackageVersion Include="Dapper" Version="2.1.89"/>
+        <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.3"/>
         <!-- MassTransit is intentionally pinned to the 8.x line: v9+ moved to a commercial
              license (free only via a <$1M revenue discount program), while 8.x remains
              Apache 2.0 with security patches through the end of 2026. Do not bump to 9.x. -->
@@ -37,13 +37,13 @@
         <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.19.0"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.19.0"/>
         <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.1-beta.2"/>
-        <PackageVersion Include="Refit" Version="16.1.0"/>
-        <PackageVersion Include="Refit.HttpClientFactory" Version="16.1.0"/>
+        <PackageVersion Include="Refit" Version="16.3.0"/>
+        <PackageVersion Include="Refit.HttpClientFactory" Version="16.3.0"/>
         <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
         <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1"/>
         <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
         <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.2"/>
-        <PackageVersion Include="StackExchange.Redis" Version="3.3.0"/>
+        <PackageVersion Include="StackExchange.Redis" Version="3.3.1"/>
         <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.3"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.3"/>
