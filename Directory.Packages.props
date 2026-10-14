@@ -16,12 +16,12 @@
         <PackageVersion Include="MassTransit.Analyzers" Version="8.5.11"/>
         <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.11"/>
         <PackageVersion Include="MediatR" Version="14.2.0"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.12"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.12"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="10.0.12"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12"/>
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.12"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.13"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.13"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="10.0.13"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.13"/>
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.13"/>
         <PackageVersion Include="MMLib.SwaggerForOcelot" Version="11.0.0"/>
         <PackageVersion Include="MongoDB.Driver" Version="3.12.0"/>
         <PackageVersion Include="MongoDB.Driver.Core.Extensions.DiagnosticSources" Version="3.0.0"/>
@@ -43,7 +43,7 @@
         <PackageVersion Include="Serilog.Settings.Configuration" Version="10.0.1"/>
         <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1"/>
         <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.2"/>
-        <PackageVersion Include="StackExchange.Redis" Version="3.3.1"/>
+        <PackageVersion Include="StackExchange.Redis" Version="3.4.5"/>
         <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.3.0"/>
         <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.3.0"/>
