@@ -21,7 +21,7 @@
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="11.0.0"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.14"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14"/>
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.14"/>
+        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="11.0.0"/>
         <PackageVersion Include="MMLib.SwaggerForOcelot" Version="11.0.0"/>
         <PackageVersion Include="MongoDB.Driver" Version="3.13.0"/>
         <PackageVersion Include="MongoDB.Driver.Core.Extensions.DiagnosticSources" Version="3.0.0"/>
