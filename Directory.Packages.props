@@ -16,9 +16,15 @@
         <PackageVersion Include="MassTransit.Analyzers" Version="8.5.12"/>
         <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.12"/>
         <PackageVersion Include="MediatR" Version="14.3.0"/>
+        <!-- The EF Core family is held on the 10.x line by the PostgreSQL provider:
+             Npgsql.EntityFrameworkCore.PostgreSQL 10.0.3 declares
+             Microsoft.EntityFrameworkCore/[.Relational] [10.0.4, 11.0.0) with include="All",
+             and its 11.0.0 line is still prerelease (latest: 11.0.0-rc.3), which in turn pins
+             EF Core to the exact build [11.0.0-rc.3.26522.148]. Move the whole family
+             (incl. Analyzers, which must stay in lockstep) once the provider ships 11.0.0. -->
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.15"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.15"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="11.0.0"/>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Analyzers" Version="10.0.15"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.15"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.15"/>
         <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="11.0.0"/>
@@ -32,11 +38,11 @@
         <PackageVersion Include="OpenTelemetry" Version="1.21.0"/>
         <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.21.0"/>
         <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.21.0"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.20.2"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.15.1-beta.1"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.20.2"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.20.1"/>
-        <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.15.1-beta.2"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.21.0"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.21.0-beta.1"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.21.0"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.21.0"/>
+        <PackageVersion Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.21.0-beta.1"/>
         <PackageVersion Include="Refit" Version="16.4.0"/>
         <PackageVersion Include="Refit.HttpClientFactory" Version="16.4.0"/>
         <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0"/>
@@ -45,10 +51,10 @@
         <PackageVersion Include="Serilog.Sinks.Grafana.Loki" Version="9.0.2"/>
         <PackageVersion Include="StackExchange.Redis" Version="3.4.31"/>
         <PackageVersion Include="StyleCop.Analyzers" Version="1.3.180"/>
-        <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.3.1"/>
-        <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.3.1"/>
-        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.3.1"/>
-        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.3.1"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="11.0.0"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="11.0.0"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="11.0.0"/>
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="11.0.0"/>
     </ItemGroup>
 
 </Project>

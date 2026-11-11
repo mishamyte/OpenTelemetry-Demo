@@ -13,6 +13,12 @@ updates:
       # MassTransit v9+ is commercially licensed; stay on the Apache 2.0 8.x line
       - dependency-name: "MassTransit*"
         update-types: ["version-update:semver-major"]
+      # EF Core is held on the 10.x line by Npgsql.EntityFrameworkCore.PostgreSQL,
+      # which constrains it to [10.0.4, 11.0.0) and has no stable 11.x yet. Ungrouped
+      # majors here produced a partial bump once already (Analyzers to 11.0.0 while the
+      # rest stayed on 10.x). Drop this entry when the provider ships 11.0.0.
+      - dependency-name: "Microsoft.EntityFrameworkCore*"
+        update-types: ["version-update:semver-major"]
     # With Central Package Management, family packages must move in lockstep,
     # which made ungrouped Dependabot open individual PRs and then supersede
     # them with ad-hoc "multi" PRs. One catch-all group for routine updates;
