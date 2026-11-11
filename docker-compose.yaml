@@ -155,6 +155,12 @@ services:
         condition: service_started
       rabbitmq:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-alpha
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -176,6 +182,12 @@ services:
         condition: service_started
       otel-collector:
         condition: service_started
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-epsilon
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -197,6 +209,12 @@ services:
         condition: service_started
       rabbitmq:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-mu
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -218,6 +236,12 @@ services:
         condition: service_healthy
       otel-collector:
         condition: service_started
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-nu
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -232,7 +256,23 @@ services:
       context: .
       dockerfile: ./Omicron/Dockerfile
     container_name: otel-omicron
-    # depends_on
+    depends_on:
+      alpha:
+        condition: service_healthy
+      epsilon:
+        condition: service_healthy
+      mu:
+        condition: service_healthy
+      nu:
+        condition: service_healthy
+      sigma:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-omicron
     environment:
       ASPNETCORE_ENVIRONMENT: Docker
@@ -256,6 +296,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/80'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 10s
     image: otel-sigma
     environment:
       ASPNETCORE_ENVIRONMENT: Docker

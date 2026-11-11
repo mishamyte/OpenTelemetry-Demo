@@ -53,6 +53,7 @@ services.AddOpenTelemetry()
 
 var app = builder.Build();
 
+app.UseSwaggerForOcelotDocsGuard(configuration);
 app.UseSwagger();
 app.UseSwaggerForOcelotUI();
 
